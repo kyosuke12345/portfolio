@@ -1,5 +1,5 @@
 import { Body, Controller, Post, Get, Param } from '@nestjs/common';
-import { ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse, ApiParam, ApiTags } from '@nestjs/swagger';
 import { AddHobbyDTO } from './class/user.dto';
 import { UserDetailResponse, UserListResponse } from './class/user.response';
 import { UserService } from './user.service';
@@ -10,6 +10,8 @@ export class UserController {
   constructor(private service: UserService) { }
 
   @ApiOkResponse({ description: 'list取得時', type: UserListResponse })
+  @ApiParam({ name: 'page', required: true })
+  @ApiParam({ name: 'per', required: true })
   @Get('list/:page/:per')
   async list(@Param('page') page: number, @Param('per') per) {
     return this.service.list(page, per);

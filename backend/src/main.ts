@@ -1,6 +1,5 @@
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { config } from 'rxjs';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -9,7 +8,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Kyosuke Portfolio api v1')
-    .setDescription('The cats API description')
+    .setDescription('ポートフォリオ用のapi類')
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);
