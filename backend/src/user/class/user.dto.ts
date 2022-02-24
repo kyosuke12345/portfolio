@@ -1,24 +1,39 @@
 import { ApiProperty, PickType } from "@nestjs/swagger";
-import { ArrayNotEmpty, IsEmail, IsString, MaxLength } from "class-validator";
-import { MAX_LENGTH } from "src/database/entities/user.entity";
-import { MAX_LENGTH as HOBBY_MAX_LENGTH } from 'src/database/entities/hobby.entity';
+import { ArrayNotEmpty, IsEmail, IsNumber, IsString, MaxLength } from "class-validator";
+import { MAX_LENGTH, User } from "src/database/entities/user.entity";
+import { Hobby, MAX_LENGTH as HOBBY_MAX_LENGTH } from 'src/database/entities/hobby.entity';
 
 export class UserLoginDTO {
   @ApiProperty({ type: String, default: 'test@gmail.com' })
   @IsEmail()
   @MaxLength(MAX_LENGTH.EMAIL)
-  email: string;
+  email: User['email'];
 
   @ApiProperty({ type: String, default: '12345678' })
   @IsString()
-  password: string;
+  password: User['password'];
 }
 
 export class CreateUserDTO extends PickType(UserLoginDTO, ['email', 'password'] as const) { }
 
 export class AddHobbyDTO {
-  @ApiProperty({ type: String, default: '趣味の名前' })
+  @ApiProperty({ type: Number, description: 'uesr id' })
+  @IsNumber()
+  userId: User['id'];
+
+  @ApiProperty({ type: String, isArray: true, maxLength: HOBBY_MAX_LENGTH.NAME })
   @ArrayNotEmpty()
   @MaxLength(HOBBY_MAX_LENGTH.NAME, { each: true })
-  names: string[];
+  names: Hobby['name'][];
+}
+
+export class RemoveHobbyDTO {
+  @ApiProperty({ type: Number, description: 'uesr id' })
+  @IsNumber()
+  userId: User['id'];
+
+  @ApiProperty({ type: [Number] })
+  @ArrayNotEmpty()
+  hobbyIds: Hobby['id'][];
+
 }

@@ -22,6 +22,9 @@ export class DatabaseConfig implements TypeOrmOptionsFactory {
       ],
       synchronize: false,
       logging: this.configService.get<string>('DATABASE_LOG') === 'true',
+      extra: {
+        poolSize: 10,
+      }
     };
 
     return config;

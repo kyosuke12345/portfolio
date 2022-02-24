@@ -4,6 +4,10 @@ if (!NODE_ENV) {
   throw new Error('Not set NODE_ENV');
 }
 
+export function isProduct() {
+  return NODE_ENV === 'product';
+}
+
 const enviroment = {
   NODE_ENV: NODE_ENV,
 };

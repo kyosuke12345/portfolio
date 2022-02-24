@@ -21,6 +21,6 @@ export class PaginationListResponse<T> extends PaginationResponse {
     this.items = items;
     this.total = total;
     this.per = per;
-    this.totalPage = total === 0 ? 0 : (total / per) + 1;
+    this.totalPage = total === 0 ? 0 : Math.floor(total / per) + 1;
   }
 }

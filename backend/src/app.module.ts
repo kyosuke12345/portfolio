@@ -5,6 +5,7 @@ import { DatabaseConfig } from './config/database.config';
 import { UserModule } from './user/user.module';
 import { CustomLoggerModule } from './custom-logger/custom-logger.module';
 import { CoreModule } from './core/core.module';
+import { AuthenticationModule } from './authentication/authentication.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { CoreModule } from './core/core.module';
     UserModule,
     CustomLoggerModule,
     CoreModule,
+    AuthenticationModule,
   ],
   controllers: [],
   providers: [],
