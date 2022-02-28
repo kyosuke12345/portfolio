@@ -1,5 +1,5 @@
 import { Alert, AlertTitle } from "@mui/material";
-import ProfileComponent from "components/user/ProfileComponent";
+import ProfileComponent from "components/panel/userprofile/container";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/rootReducer";
 

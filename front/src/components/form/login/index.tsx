@@ -1,6 +1,6 @@
 import { Button, Grid } from "@mui/material";
-import WrapperTextField from "atoms/form/WrapperTextField";
-import { Field, Form, InjectedFormProps, reduxForm } from "redux-form";
+import WrapperTextField from "components/input/text";
+import { Field, Form, InjectedFormProps } from "redux-form";
 import { required, minLength, maxLength, email } from "utils/validator";
 
 const minLength4 = minLength(4);
@@ -11,7 +11,7 @@ export type LoginFormFileds = {
   password: string;
 };
 
-type LoginFormProps = {
+export type LoginFormProps = {
   // onParent: () => void;
 };
 
@@ -46,13 +46,11 @@ const LoginForm: React.VFC<InjectedLoginFormProps> = ({
           />
         </Grid>
         <Grid item xs={12}>
-          <Button type="submit">Login</Button>
+          <Button type="submit">ログイン</Button>
         </Grid>
       </Grid>
     </Form>
   );
 };
 
-export default reduxForm<LoginFormFileds, LoginFormProps>({
-  form: "LoginForm",
-})(LoginForm);
+export default LoginForm;

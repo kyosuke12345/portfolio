@@ -1,15 +1,15 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import DashboardLayout from "components/dashboard/DashboardLayout";
 import path from "utils/path";
 import { ScopedCssBaseline } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import LoginFormScreen from "pages/LoginFormScreen";
-import UserListScreen from "pages/UserListScreen";
+import LoginScreen from "pages/login/index";
+import UserListScreen from "pages/userlist/index";
 import { useDidMount } from "hooks/useDidMount";
 import { getUserInfo } from "redux/modules/authModule";
 import { RootState } from "redux/rootReducer";
-import UserDetailScreen from "pages/UserDetailScreen";
+import UserDetailScreen from "pages/userdetail/index";
+import DashboardLayout from "pages/BaseLayout";
 
 // NOTE: userRoutesがまだ使用できないので、Routeで記載する
 
@@ -33,7 +33,7 @@ const App: React.VFC = () => {
               <Route path={path.dashboardPath.about.href} element={<></>} />
               <Route
                 path={path.dashboardPath.login.href}
-                element={<LoginFormScreen />}
+                element={<LoginScreen />}
               />
               <Route
                 path={path.dashboardPath.userList.href}

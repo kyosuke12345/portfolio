@@ -1,14 +1,12 @@
 import { List, ListItem, Typography, ListItemText } from "@mui/material";
 import { Box } from "@mui/system";
 import { UserDetailResponse } from "api/response/userDetail.response";
-import { connect } from "react-redux";
-import { RootState } from "redux/rootReducer";
 
-export type ProfileProps = {
+export type UserProfilePanelProps = {
   user?: UserDetailResponse;
 };
 
-const Profile: React.VFC<ProfileProps> = ({ user }) => {
+const UserProfilePanel: React.VFC<UserProfilePanelProps> = ({ user }) => {
   return (
     <Box>
       <Typography>{`email: ${user?.email}`}</Typography>
@@ -26,10 +24,4 @@ const Profile: React.VFC<ProfileProps> = ({ user }) => {
   );
 };
 
-const mapStateToProps = (state: RootState) => {
-  return {
-    user: state.auth.user,
-  };
-};
-
-export default connect(mapStateToProps)(Profile);
+export default UserProfilePanel;

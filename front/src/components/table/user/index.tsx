@@ -6,13 +6,8 @@ import {
   TableBody,
   TableRow,
 } from "@mui/material";
-import { DEFAULT_PAGER } from "api/response/common.response";
 import { UserListResponse } from "api/response/userList.response";
-import Pagination, { PaginationProps } from "components/pagenation/pagination";
-import { connect } from "react-redux";
-import { RootState } from "redux/rootReducer";
-import { AppDispatch } from "redux/store";
-import { search, USER_LIST_PAGE_PER } from "redux/modules/userListModule";
+import Pagination, { PaginationProps } from "components/pagenation/index";
 
 export type UserListTableProps = {
   pager: UserListResponse["pager"];
@@ -53,19 +48,4 @@ const UserListTable: React.VFC<UserListTableProps> = ({
   );
 };
 
-const mapStateToProps = (state: RootState) => {
-  return {
-    items: state.userList.listResponse ? state.userList.listResponse.items : [],
-    pager: state.userList.listResponse
-      ? state.userList.listResponse.pager
-      : DEFAULT_PAGER.pager,
-  };
-};
-
-const mapDispatchToProps = (dispatch: AppDispatch) => {
-  return {
-    onChange: (page: number) => dispatch(search(page, USER_LIST_PAGE_PER)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserListTable);
+export default UserListTable;

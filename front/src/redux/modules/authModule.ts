@@ -4,7 +4,7 @@ import { showLoading, hideLoading } from "redux/modules/loadingModule";
 import { showAlertDialog } from "redux/modules/alertDialogModule";
 import { get, post } from "api/fetch";
 import URL from "api/url";
-import { LoginFormFileds } from "components/login/LoginForm";
+import { LoginFormFileds } from "components/form/login";
 import { UserDetailResponse } from "api/response/userDetail.response";
 import { ERROR_CODE_FORBIDDEN, isErrorResponse } from "api/error";
 import path from "utils/path";

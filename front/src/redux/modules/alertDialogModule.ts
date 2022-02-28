@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AlertDialogProps } from "components/dialog/AlertDialogContainer";
+import { AlertDialogProps } from "components/dialog/alert";
 
 export type AlertDialogState = Pick<
   AlertDialogProps,

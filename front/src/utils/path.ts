@@ -1,4 +1,4 @@
-import { NavIconType } from "components/dashboard/NavItem";
+import { NavIconType } from "components/dashboard/navbar/NavItem";
 
 type DashBoardPath = {
   href: string;

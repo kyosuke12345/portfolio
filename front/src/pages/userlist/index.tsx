@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import UserListTableContainer from "components/table/UserListTableContainer";
+import UserListTableContainer from "components/table/user/container";
 import { useDidMount } from "hooks/useDidMount";
 import { useDispatch } from "react-redux";
 import { search, USER_LIST_PAGE_PER } from "redux/modules/userListModule";

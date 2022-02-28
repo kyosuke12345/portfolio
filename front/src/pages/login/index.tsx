@@ -1,10 +1,11 @@
 import { Alert, Box } from "@mui/material";
-import LoginForm, { LoginFormFileds } from "components/login/LoginForm";
+import LoginFormContainer from "components/form/login/container";
+import { LoginFormFileds } from "components/form/login";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "redux/modules/authModule";
 import { RootState } from "redux/rootReducer";
 
-const LoginFormScreen: React.VFC = () => {
+const LoginScreen: React.VFC = () => {
   const { isAuth } = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
   return (
@@ -14,7 +15,7 @@ const LoginFormScreen: React.VFC = () => {
           <Alert severity="warning">すでにログインされています。</Alert>
         </Box>
       )}
-      <LoginForm
+      <LoginFormContainer
         onSubmit={(values: LoginFormFileds) => {
           dispatch(login(values));
         }}
@@ -23,4 +24,4 @@ const LoginFormScreen: React.VFC = () => {
   );
 };
 
-export default LoginFormScreen;
+export default LoginScreen;

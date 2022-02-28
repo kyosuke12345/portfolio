@@ -2,8 +2,8 @@ import { Drawer, List, ModalProps } from "@mui/material";
 import { Box } from "@mui/system";
 import { useMemo } from "react";
 import path from "utils/path";
-import { SIDE_MENU_WIDTH } from "./DashboardLayout";
-import NavItem, { NavItemProps } from "./NavItem";
+import { SIDE_MENU_WIDTH } from "../../../pages/BaseLayout";
+import NavItem, { NavItemProps } from "../navbar/NavItem";
 
 export type DashBoardSideBarProps = {
   isMobile: boolean;

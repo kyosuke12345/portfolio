@@ -1,11 +1,14 @@
 import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
-import AlertDialogContainer from "components/dialog/AlertDialogContainer";
-import LoadingDialogContainer from "components/dialog/LoadingDialogContainer";
+import AlertDialogContainer from "components/dialog/alert/container";
+import IndicatorContainer from "components/dialog/indicator/container";
 import useMobile from "hooks/useMobile";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
-import ConnectDashboardNavbar from "./DashboardNavbar";
-import DashboardSidebar from "./DashboardSidebar";
+import { RootState } from "redux/rootReducer";
+import DashboardNavbar from "../components/dashboard/navbar";
+import DashboardSidebar from "../components/dashboard/sidebar";
+import { logout } from "redux/modules/authModule";
 
 export const SIDE_MENU_WIDTH = 280;
 
@@ -69,13 +72,17 @@ const theme = createTheme({
 
 const DashboardLayout: React.FC = () => {
   const [navOpen, setNavOpen] = useState(false);
+  const dispatch = useDispatch();
+  const { isAuth } = useSelector((state: RootState) => state.auth);
   const isMobile = useMobile();
   return (
     <ThemeProvider theme={theme}>
       <DashboardLayoutRoot>
-        <ConnectDashboardNavbar
+        <DashboardNavbar
+          isAuth={isAuth}
           isMobile={isMobile}
           openNav={() => setNavOpen(!navOpen)}
+          onLogout={() => dispatch(logout())}
         />
         <DashboardSidebar
           isMobile={isMobile}
@@ -92,7 +99,7 @@ const DashboardLayout: React.FC = () => {
         </DashboardLayoutWrapper>
       </DashboardLayoutRoot>
       <AlertDialogContainer />
-      <LoadingDialogContainer />
+      <IndicatorContainer />
     </ThemeProvider>
   );
 };
