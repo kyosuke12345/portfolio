@@ -3,7 +3,7 @@ import WrapperTextField from "atoms/form/WrapperTextField";
 import { Field, Form, InjectedFormProps, reduxForm } from "redux-form";
 import { required, minLength, maxLength, email } from "utils/validator";
 
-const minLength8 = minLength(8);
+const minLength4 = minLength(4);
 const maxLength16 = maxLength(16);
 
 export type LoginFormFileds = {
@@ -41,7 +41,7 @@ const LoginForm: React.VFC<InjectedLoginFormProps> = ({
             name="password"
             component={WrapperTextField}
             type="password"
-            validate={[required, minLength8, maxLength16]}
+            validate={[required, minLength4, maxLength16]}
             label={"パスワード"}
           />
         </Grid>

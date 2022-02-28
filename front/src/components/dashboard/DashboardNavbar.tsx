@@ -54,7 +54,7 @@ const mapStateToProps = (
   state: RootState
 ): Pick<DashboardNavbarProps, "name"> => {
   return {
-    name: state.auth.name ?? "",
+    name: state.auth.user ? state.auth.user.email : "",
   };
 };
 

@@ -11,10 +11,10 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import LoginIcon from "@mui/icons-material/Login";
 import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
-import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
+import InfoIcon from "@mui/icons-material/Info";
 import { ReactNode } from "react";
 
-export type NavIconType = "login" | "list" | "account" | "user" | "userAdd";
+export type NavIconType = "login" | "list" | "account" | "user" | "info";
 
 export interface NavItemProps {
   /** url */
@@ -37,8 +37,8 @@ function renderNavIcon(iconType: NavIconType): ReactNode {
       return <AccountCircleIcon />;
     case "list":
       return <SupervisedUserCircleIcon />;
-    case "userAdd":
-      return <PersonAddAltIcon />;
+    case "info":
+      return <InfoIcon />;
     default:
       return <SettingsApplicationsIcon />;
   }

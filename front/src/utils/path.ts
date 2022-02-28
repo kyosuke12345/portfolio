@@ -7,13 +7,18 @@ type DashBoardPath = {
 };
 
 type DashBoardPaths = {
+  about: DashBoardPath;
   login: DashBoardPath;
   userList: DashBoardPath;
   user: DashBoardPath;
-  userAdd: DashBoardPath;
 };
 
 const dashboardPath: DashBoardPaths = {
+  about: {
+    href: "portfolio",
+    title: "プロフィール",
+    iconType: "info",
+  },
   userList: {
     href: "user-list",
     title: "ユーザ一覧",
@@ -25,14 +30,9 @@ const dashboardPath: DashBoardPaths = {
     iconType: "login",
   },
   user: {
-    href: "user",
+    href: "user-detail",
     title: "ユーザ情報",
-    iconType: "user",
-  },
-  userAdd: {
-    href: "user-add",
-    title: "ユーザ追加",
-    iconType: "userAdd",
+    iconType: "account",
   },
 };
 

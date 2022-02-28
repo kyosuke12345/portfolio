@@ -1,11 +1,13 @@
 import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
+import AlertDialogContainer from "components/dialog/AlertDialogContainer";
+import LoadingDialogContainer from "components/dialog/LoadingDialogContainer";
 import useMobile from "hooks/useMobile";
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import ConnectDashboardNavbar from "./DashboardNavbar";
 import DashboardSidebar from "./DashboardSidebar";
 
-export const SIDE_MENU_WIDTH = 256;
+export const SIDE_MENU_WIDTH = 280;
 
 const DashboardLayoutRoot = styled("div")(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
@@ -89,6 +91,8 @@ const DashboardLayout: React.FC = () => {
           </DashboardLayoutContainer>
         </DashboardLayoutWrapper>
       </DashboardLayoutRoot>
+      <AlertDialogContainer />
+      <LoadingDialogContainer />
     </ThemeProvider>
   );
 };

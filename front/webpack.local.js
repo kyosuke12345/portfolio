@@ -26,10 +26,8 @@ module.exports = merge.merge(common, {
     open: true,
     historyApiFallback: true,
     // overlay: true,
-    // proxy: {
-    //   '/accesslog/api': {
-    //     target: 'http://localhost:9100',
-    //   },
-    // },
+    proxy: {
+      "/api": "http://backend:3100",
+    },
   },
 });
