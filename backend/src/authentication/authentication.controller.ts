@@ -23,4 +23,13 @@ export class AuthenticationController {
   async login(@Req() req: RequestWithUser) {
     return req.user;
   }
+
+  @ApiOperation({ description: 'logout処理' })
+  @ApiUnauthorizedResponse()
+  @Post('logout')
+  async logout(@Req() req: RequestWithUser) {
+    req.logout();
+    req.session.cookie.maxAge = 0;
+    return {}
+  }
 }

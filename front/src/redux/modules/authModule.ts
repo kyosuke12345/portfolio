@@ -66,7 +66,9 @@ export function login(params: LoginFormFileds): DefaultThunkAction {
 
 /** ログアウト処理 */
 export function logout(): DefaultThunkAction {
-  return (dispatch) => {
+  return async (dispatch) => {
+    // logout
+    await post(URL.POST_LOGOUT(), {});
     dispatch(authModule.actions.logout());
   };
 }

@@ -5,12 +5,18 @@ import { AppModule } from './app.module';
 import * as createRedisStore from 'connect-redis';
 import * as session from 'express-session';
 import * as passport from 'passport';
+import helmet from 'helmet';
 import { createClient } from 'redis';
 import { isProduct } from './config/enviroment';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api/v1/')
+
+  // helmet
+  app.use(helmet({
+    hidePoweredBy: true
+  }));
 
   const configService = app.get(ConfigService);
   // redis version4はnest側でまだ対応されていない
