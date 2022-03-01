@@ -24,7 +24,8 @@
     "migration:generate": "yarn typeorm migration:generate -- -f ormconfig.js -n",
     "migration:run": "yarn typeorm migration:run -- -f ormconfig.js",
     "migration:revert": "yarn typeorm migration:revert -- -f ormconfig.js",
-    "migration:heroku:run": "yarn typeorm migration:run -- -f ormconfig.heroku.js"
+    "migration-heroku:run": "yarn typeorm migration:run -- -f ormconfig.heroku.js",
+    "migration-heroku:revert": "yarn typeorm migration:revert -- -f ormconfig.heroku.js"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
