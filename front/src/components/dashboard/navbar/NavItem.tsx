@@ -63,7 +63,7 @@ const NavItem: React.VFC<NavItemProps> = ({
     ? !!matchPath(
         {
           path: url,
-          end: false,
+          end: true,
         },
         location.pathname
       )

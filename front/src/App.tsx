@@ -10,6 +10,7 @@ import { getUserInfo } from "redux/modules/authModule";
 import { RootState } from "redux/rootReducer";
 import UserDetailScreen from "pages/userdetail/index";
 import DashboardLayout from "pages/BaseLayout";
+import PortFolioScreen from "pages/portfolio";
 
 // NOTE: userRoutesがまだ使用できないので、Routeで記載する
 
@@ -30,7 +31,10 @@ const App: React.VFC = () => {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<DashboardLayout />}>
-              <Route path={path.dashboardPath.about.href} element={<></>} />
+              <Route
+                path={path.dashboardPath.about.href}
+                element={<PortFolioScreen />}
+              />
               <Route
                 path={path.dashboardPath.login.href}
                 element={<LoginScreen />}
@@ -43,7 +47,6 @@ const App: React.VFC = () => {
                 path={path.dashboardPath.user.href}
                 element={<UserDetailScreen />}
               />
-              <Route path="*" element={<div>404</div>} />
             </Route>
           </Routes>
         </BrowserRouter>

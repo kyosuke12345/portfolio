@@ -15,8 +15,8 @@ type DashBoardPaths = {
 
 const dashboardPath: DashBoardPaths = {
   about: {
-    href: "portfolio",
-    title: "プロフィール",
+    href: "/",
+    title: "about",
     iconType: "info",
   },
   userList: {

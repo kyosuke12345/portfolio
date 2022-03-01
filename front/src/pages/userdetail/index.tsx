@@ -1,7 +1,8 @@
-import { Alert, AlertTitle } from "@mui/material";
-import ProfileComponent from "components/panel/userprofile/container";
+import { Alert, AlertTitle, Link } from "@mui/material";
+import UserProfilePanelContainer from "components/panel/userprofile/container";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/rootReducer";
+import path from "utils/path";
 
 const UserDetailScreen: React.VFC = () => {
   const { isAuth } = useSelector((state: RootState) => state.auth);
@@ -10,14 +11,14 @@ const UserDetailScreen: React.VFC = () => {
     return (
       <Alert severity="warning">
         <AlertTitle>ログインしてください</AlertTitle>
-        ログイン画面にてログインした場合に、ログインユーザの情報が表示されます。
-        ログインのidとパスワードはこちらから確認ください。
+        <Link href={path.dashboardPath.login.href}>ログイン画面</Link>
+        にてログインした場合に、ログインユーザの情報が表示されます。
       </Alert>
     );
   } else {
     return (
       <>
-        <ProfileComponent />
+        <UserProfilePanelContainer />
       </>
     );
   }

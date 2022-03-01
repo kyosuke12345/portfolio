@@ -5,6 +5,7 @@ import {
   TableHead,
   TableBody,
   TableRow,
+  Box,
 } from "@mui/material";
 import { UserListResponse } from "api/response/userList.response";
 import Pagination, { PaginationProps } from "components/pagenation/index";
@@ -23,26 +24,28 @@ const UserListTable: React.VFC<UserListTableProps> = ({
   return (
     <>
       <Pagination pager={pager} onChange={onChange} />
-      <TableContainer>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>email</TableCell>
-              <TableCell>password</TableCell>
-              <TableCell>plainPassword</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {items.map((item) => (
-              <TableRow key={item.id}>
-                <TableCell>{item.email}</TableCell>
-                <TableCell>{item.password}</TableCell>
-                <TableCell>{item.plainPassword}</TableCell>
+      <Box sx={{ mb: 1 }}>
+        <TableContainer>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>email</TableCell>
+                <TableCell>plainPassword</TableCell>
+                <TableCell>password</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableHead>
+            <TableBody>
+              {items.map((item) => (
+                <TableRow key={item.id}>
+                  <TableCell>{item.email}</TableCell>
+                  <TableCell>{item.plainPassword}</TableCell>
+                  <TableCell>{item.password}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Box>
       <Pagination pager={pager} onChange={onChange} />
     </>
   );

@@ -28,6 +28,7 @@ module.exports = merge.merge(common, {
     // overlay: true,
     proxy: {
       "/api": "http://backend:3100",
+      "/swagger": "http://backend:3100",
     },
   },
 });

@@ -49,8 +49,8 @@ export function login(params: LoginFormFileds): DefaultThunkAction {
       // 認証
       await post(URL.POST_LOGIN(), params);
       const response = await get<UserDetailResponse>(URL.GET_USER_DETAIL());
-      dispatch(authModule.actions.succeedLogin(response));
       location.href = path.dashboardPath.user.href;
+      dispatch(authModule.actions.succeedLogin(response));
     } catch (err) {
       dispatch(
         showAlertDialog({

@@ -79,6 +79,7 @@ const DashboardLayout: React.FC = () => {
     <ThemeProvider theme={theme}>
       <DashboardLayoutRoot>
         <DashboardNavbar
+          title={"簡易ポートフォリオ"}
           isAuth={isAuth}
           isMobile={isMobile}
           openNav={() => setNavOpen(!navOpen)}
