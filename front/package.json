@@ -33,10 +33,12 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
+    "preinstall": "npx npm-force-resolutions",
     "start:local": "webpack server --config webpack.local.js --progress",
     "build:local": "webpack --config webpack.local.js --progress",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build:heroku": "webpack --config webpack.heroku.js --progress"
   },
   "eslintConfig": {
     "extends": [
@@ -70,6 +72,7 @@
     "sass-loader": "^12.3.0",
     "style-loader": "^3.3.1",
     "svg-inline-loader": "^0.8.2",
+    "terser-webpack-plugin": "^5.3.1",
     "tsconfig-paths-webpack-plugin": "^3.5.1",
     "webpack": "^5.62.1",
     "webpack-cli": "^4.9.1",

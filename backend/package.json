@@ -23,7 +23,8 @@
     "migration:create": "yarn typeorm migration:create -- -f ormconfig.js -n",
     "migration:generate": "yarn typeorm migration:generate -- -f ormconfig.js -n",
     "migration:run": "yarn typeorm migration:run -- -f ormconfig.js",
-    "migration:revert": "yarn typeorm migration:revert -- -f ormconfig.js"
+    "migration:revert": "yarn typeorm migration:revert -- -f ormconfig.js",
+    "migration:heroku:run": "yarn typeorm migration:run -- -f ormconfig.heroku.js"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
@@ -31,6 +32,7 @@
     "@nestjs/core": "^8.0.0",
     "@nestjs/passport": "^8.2.1",
     "@nestjs/platform-express": "^8.0.0",
+    "@nestjs/serve-static": "^2.2.2",
     "@nestjs/swagger": "^5.2.0",
     "@nestjs/typeorm": "^8.0.3",
     "@types/bcrypt": "^5.0.0",

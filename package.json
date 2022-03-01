@@ -1,0 +1,14 @@
+{
+  "name": "akasatana-portfolio",
+  "description": "簡易ポートフォリオ",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "yarn": "1.x"
+  },
+  "scripts": {
+    "install": "yarn --cwd front install && yarn --cwd backend install",
+    "heroku-postbuild": "yarn --cmd backend migration:heroku:run && yarn --cwd backend build && yarn --cwd front build:heroku",
+    "start": "yarn --cwd backend start:prod"
+  }
+}

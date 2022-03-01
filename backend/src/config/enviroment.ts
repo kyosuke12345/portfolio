@@ -5,7 +5,7 @@ if (!NODE_ENV) {
 }
 
 export function isProduct() {
-  return NODE_ENV === 'product';
+  return NODE_ENV === 'production';
 }
 
 const enviroment = {

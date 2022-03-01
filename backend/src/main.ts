@@ -24,7 +24,7 @@ async function bootstrap() {
   const redisClient = createClient({
     host: configService.get('REDIS_HOST'),
     port: configService.get('REDIS_PORT'),
-
+    password: isProduct() ? configService.get('REDIS_PASSWORD'): undefined
   });
   app.use(
     session({
@@ -53,6 +53,6 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('swagger', app, document);
 
-  await app.listen(3100);
+  await app.listen(process.env.PORT || 3100);
 }
 bootstrap();
