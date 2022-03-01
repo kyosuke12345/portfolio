@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { User } from 'src/database/entities/user.entity';
 import { Hobby } from 'src/database/entities/hobby.entity';
+import { isProduct } from './enviroment';
 
 @Injectable()
 export class DatabaseConfig implements TypeOrmOptionsFactory {
@@ -16,7 +17,9 @@ export class DatabaseConfig implements TypeOrmOptionsFactory {
       username: this.configService.get<string>('DATABASE_USER'),
       password: this.configService.get<string>('DATABASE_PASSWORD', ''),
       database: this.configService.get<string>('DATABASE_NAME'),
-      // ssl: {},
+      ssl: isProduct() && {
+        rejectUnauthorized: false
+      },
       entities: [
         User, Hobby,
       ],
