@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Box,
   Typography,
   Link,
@@ -15,6 +14,7 @@ import {
 import { ReactGenieAnimations } from "react-genie-styled-components";
 import { Reveal } from "react-genie";
 import { Animation } from "react-genie-styled-components";
+import useMobile from "hooks/useMobile";
 
 const ANIMATION_SPEED = 750;
 
@@ -132,11 +132,12 @@ const CAREERS = [
       new Date().getFullYear(),
       new Date().getMonth() + 1
     ),
-    skills: "Javascript(Express)、Postgresql、MQTT、Docker、docker-compose",
+    skills: "Javascript(Express)、MongoDB、MQTT、Docker、docker-compose",
   },
 ];
 
 const PortFolioScreen: React.VFC = () => {
+  const isMobile = useMobile();
   return (
     <>
       <ReactGenieAnimations />
@@ -151,7 +152,7 @@ const PortFolioScreen: React.VFC = () => {
       >
         <Box
           sx={{
-            height: "calc(100vh - 96px)",
+            height: isMobile ? undefined : "calc(100vh - 96px)",
             flexDirection: "column",
             display: "flex",
             justifyContent: "center",

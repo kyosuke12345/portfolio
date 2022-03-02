@@ -1,5 +1,5 @@
 import { Body, Controller, Post, Get, Param, UseGuards, Req, ParseIntPipe } from '@nestjs/common';
-import { ApiCreatedResponse, ApiForbiddenResponse, ApiNotFoundResponse, ApiOkResponse, ApiParam, ApiTags } from '@nestjs/swagger';
+import { ApiCookieAuth, ApiCreatedResponse, ApiForbiddenResponse, ApiNotFoundResponse, ApiOkResponse, ApiParam, ApiTags } from '@nestjs/swagger';
 import RequestWithUser from 'src/authentication/class/authentication.interface';
 import { CookieAuthenticationGuard } from 'src/authentication/cookieAuthentication.guard';
 import { AddHobbyDTO, RemoveHobbyDTO } from './class/user.dto';
@@ -19,6 +19,7 @@ export class UserController {
     return this.service.list(page, per);
   }
 
+  @ApiCookieAuth()
   @UseGuards(CookieAuthenticationGuard)
   @ApiOkResponse({ description: '詳細取得取得時', type: UserDetailResponse })
   @ApiNotFoundResponse({ description: 'not found user' })
@@ -28,22 +29,22 @@ export class UserController {
     return this.service.detail(req.user.id);
   }
 
-  @UseGuards(CookieAuthenticationGuard)
-  @ApiCreatedResponse({ type: UserDetailResponse })
-  @ApiForbiddenResponse()
-  @Post('add-hobbies')
-  async addHobies(@Body() dto: AddHobbyDTO, @Req() req: RequestWithUser) {
-    await this.service.addHobies(req.user, dto);
-    return this.service.detail(req.user.id);
-  }
+  // @UseGuards(CookieAuthenticationGuard)
+  // @ApiCreatedResponse({ type: UserDetailResponse })
+  // @ApiForbiddenResponse()
+  // @Post('add-hobbies')
+  // async addHobies(@Body() dto: AddHobbyDTO, @Req() req: RequestWithUser) {
+  //   await this.service.addHobies(req.user, dto);
+  //   return this.service.detail(req.user.id);
+  // }
 
-  @UseGuards(CookieAuthenticationGuard)
-  @ApiCreatedResponse({ type: UserDetailResponse })
-  @ApiForbiddenResponse()
-  @Post('remove-hobbies')
-  async removeHobbies(@Body() dto: RemoveHobbyDTO, @Req() req: RequestWithUser) {
-    await this.service.removeHobbies(req.user, dto);
-    return this.service.detail(req.user.id);
-  }
+  // @UseGuards(CookieAuthenticationGuard)
+  // @ApiCreatedResponse({ type: UserDetailResponse })
+  // @ApiForbiddenResponse()
+  // @Post('remove-hobbies')
+  // async removeHobbies(@Body() dto: RemoveHobbyDTO, @Req() req: RequestWithUser) {
+  //   await this.service.removeHobbies(req.user, dto);
+  //   return this.service.detail(req.user.id);
+  // }
 
 }
