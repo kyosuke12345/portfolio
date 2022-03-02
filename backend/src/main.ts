@@ -15,7 +15,8 @@ async function bootstrap() {
 
   // helmet
   app.use(helmet({
-    hidePoweredBy: true
+    hidePoweredBy: true,
+
   }));
 
   const configService = app.get(ConfigService);
@@ -39,7 +40,8 @@ async function bootstrap() {
       secret: configService.get('SESSION_SECRET'),
       resave: false,
       saveUninitialized: false,
-      // cookie: isProduct() ? { secure: true } : {}
+      proxy: isProduct(),
+      cookie: isProduct() ? { secure: true } : {}
     }),
   );
   app.use(passport.initialize());
