@@ -26,8 +26,8 @@ async function bootstrap() {
     port: isProduct() ? undefined : configService.get('REDIS_PORT'),
     url: isProduct ? configService.get('REDIS_TLS_URL') : undefined,
     tls: isProduct() ? {
-      rejectUnauthorized: false,      
-    } :undefined
+      rejectUnauthorized: false,
+    } : undefined
   });
   app.use(
     session({
@@ -39,7 +39,7 @@ async function bootstrap() {
       secret: configService.get('SESSION_SECRET'),
       resave: false,
       saveUninitialized: false,
-      cookie: isProduct() ? { secure: true } : {}
+      // cookie: isProduct() ? { secure: true } : {}
     }),
   );
   app.use(passport.initialize());
