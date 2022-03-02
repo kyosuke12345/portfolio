@@ -24,7 +24,10 @@ async function bootstrap() {
   const redisClient = createClient({
     host: isProduct() ? undefined : configService.get('REDIS_HOST'),
     port: isProduct() ? undefined : configService.get('REDIS_PORT'),
-    url: isProduct ? configService.get('REDIS_TLS_URL') : undefined
+    url: isProduct ? configService.get('REDIS_TLS_URL') : undefined,
+    tls: isProduct() ? {
+      rejectUnauthorized: false,      
+    } :undefined
   });
   app.use(
     session({
