@@ -242,6 +242,7 @@ const PortFolioScreen: React.VFC = () => {
           </Reveal>
         </Box>
 
+        <Box sx={{ mt: 3 }}></Box>
         <Reveal animation={Animation.FadeInUp} delay={ANIMATION_SPEED}>
           <Typography textAlign="center" variant="h3">
             {"このサイトの使用言語等"}
@@ -263,7 +264,7 @@ const PortFolioScreen: React.VFC = () => {
                 <TableRow>
                   <TableCell>{"backend"}</TableCell>
                   <TableCell>
-                    {"NestJS,TypeOrm,Postgres,Redis,"}
+                    {"NestJS、TypeOrm、Postgres、Redis、"}
                     <Link href="/swagger" target="_blank">
                       {"Swawgger"}
                     </Link>
@@ -272,19 +273,20 @@ const PortFolioScreen: React.VFC = () => {
                 <TableRow>
                   <TableCell>{"front"}</TableCell>
                   <TableCell>
-                    {"React(Typescript),MUI(Material UI,Redux Toolkit)"}
+                    {"React(Typescript)、MUI(Material UI、Redux Toolkit)"}
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell>{"開発環境"}</TableCell>
-                  <TableCell>{"vscode,Docker,docker-compose"}</TableCell>
+                  <TableCell>{"vscode、Docker、docker-compose"}</TableCell>
                 </TableRow>
               </TableBody>
             </Table>
           </TableContainer>
         </Reveal>
+
+        <Box sx={{ mt: 10 }}></Box>
         <Reveal animation={Animation.FadeInUp} delay={ANIMATION_SPEED}>
-          <Box sx={{ mt: 10 }}></Box>
           <Typography textAlign="center" variant="h3">
             {"About Me"}
           </Typography>
@@ -328,8 +330,8 @@ const PortFolioScreen: React.VFC = () => {
             </Table>
           </TableContainer>
         </Reveal>
+        <Box sx={{ mt: 10 }}></Box>
         <Reveal animation={Animation.FadeInUp} delay={ANIMATION_SPEED}>
-          <Box sx={{ mt: 10 }}></Box>
           <Typography textAlign="center" variant="h3">
             {"経歴"}
           </Typography>
