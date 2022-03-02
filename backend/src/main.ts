@@ -22,9 +22,9 @@ async function bootstrap() {
   // redis version4はnest側でまだ対応されていない
   const RedisStore = createRedisStore(session);
   const redisClient = createClient({
-    host: configService.get('REDIS_HOST'),
-    port: configService.get('REDIS_PORT'),
-    password: isProduct() ? configService.get('REDIS_PASSWORD'): undefined
+    host: isProduct() ? undefined : configService.get('REDIS_HOST'),
+    port: isProduct() ? undefined : configService.get('REDIS_PORT'),
+    url: isProduct ? configService.get('REDIS_TLS_URL') : undefined
   });
   app.use(
     session({
