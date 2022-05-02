@@ -8,7 +8,7 @@ type LiquidResponse = {
   average_price: string;
 }
 
-const OVER_PRICE = 3000;
+const OVER_PRICE = 300000;
 
 @Injectable()
 export class CronService {
