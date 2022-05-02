@@ -1,10 +1,8 @@
-import { MailerService } from '@nestjs-modules/mailer';
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { lastValueFrom, map } from 'rxjs';
 import { ErrorLoggerService } from 'src/custom-logger/error-logger.service';
-import { isProduct } from '../config/enviroment'
 
 type LiquidResponse = {
   average_price: string;
@@ -14,7 +12,7 @@ const OVER_PRICE = 3000;
 
 @Injectable()
 export class CronService {
-  constructor(private httpService: HttpService, private errorLogger: ErrorLoggerService, private mailService: MailerService) { }
+  constructor(private httpService: HttpService, private errorLogger: ErrorLoggerService) { }
   isSendMail = false;
   isSendErrorMail = false;
 
@@ -24,12 +22,7 @@ export class CronService {
    * @param text 
    */
   private sendEmail(subject: string, text: string): void {
-    if (isProduct()) {
-      this.mailService.sendMail({
-        subject: subject,
-        text: text
-      })
-    }
+    this.errorLogger.log(`paper trail send mail: ${subject} ${text}`)
   }
 
   @Cron(CronExpression.EVERY_MINUTE)
