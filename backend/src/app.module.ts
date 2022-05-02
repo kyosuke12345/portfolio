@@ -8,6 +8,7 @@ import { CoreModule } from './core/core.module';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path'
+import { CronModule } from './cron/cron.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { join } from 'path'
     CustomLoggerModule,
     CoreModule,
     AuthenticationModule,
+    CronModule,
   ],
   controllers: [],
   providers: [],

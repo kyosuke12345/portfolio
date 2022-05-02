@@ -1,5 +1,6 @@
 front/node_modules
 front/public/javascript
+front/.next
 backend/node_modules
 backend/dist
 dbdata/
