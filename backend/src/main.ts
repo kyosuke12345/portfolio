@@ -11,13 +11,14 @@ import { isProduct } from './config/enviroment';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.setGlobalPrefix('api/v1/')
+  app.setGlobalPrefix('api/v1/');
 
   // helmet
-  app.use(helmet({
-    hidePoweredBy: true,
-
-  }));
+  app.use(
+    helmet({
+      hidePoweredBy: true,
+    }),
+  );
 
   const configService = app.get(ConfigService);
   // redis version4はnest側でまだ対応されていない
@@ -26,27 +27,28 @@ async function bootstrap() {
     host: isProduct() ? undefined : configService.get('REDIS_HOST'),
     port: isProduct() ? undefined : configService.get('REDIS_PORT'),
     url: isProduct ? configService.get('REDIS_TLS_URL') : undefined,
-    tls: isProduct() ? {
-      rejectUnauthorized: false,
-    } : undefined
+    tls: isProduct()
+      ? {
+          rejectUnauthorized: false,
+        }
+      : undefined,
   });
   app.use(
     session({
       name: configService.get('SESSION_NAME'),
       store: new RedisStore({
         client: redisClient,
-        ttl: 60 * 30 // redis側でsession管理 30分
+        ttl: 60 * 30, // redis側でsession管理 30分
       }),
       secret: configService.get('SESSION_SECRET'),
       resave: false,
       saveUninitialized: false,
       proxy: isProduct(),
-      cookie: isProduct() ? { secure: true } : {}
+      cookie: isProduct() ? { secure: true } : {},
     }),
   );
   app.use(passport.initialize());
   app.use(passport.session());
-
 
   // swagger
   const config = new DocumentBuilder()
