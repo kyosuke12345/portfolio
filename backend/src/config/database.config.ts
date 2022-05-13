@@ -4,10 +4,12 @@ import { ConfigService } from '@nestjs/config';
 import { User } from 'src/database/entities/user.entity';
 import { Hobby } from 'src/database/entities/hobby.entity';
 import { isProduct } from './enviroment';
+import { CryptocurrencyMaster } from 'src/database/entities/cryptocurrencyMaster.entity';
+import { CryptocurrencyDayData } from 'src/database/entities/cryptocurrencyDayData.entity';
 
 @Injectable()
 export class DatabaseConfig implements TypeOrmOptionsFactory {
-  constructor(private readonly configService: ConfigService) { }
+  constructor(private readonly configService: ConfigService) {}
 
   createTypeOrmOptions(): TypeOrmModuleOptions {
     const config: TypeOrmModuleOptions = {
@@ -18,16 +20,14 @@ export class DatabaseConfig implements TypeOrmOptionsFactory {
       password: this.configService.get<string>('DATABASE_PASSWORD', ''),
       database: this.configService.get<string>('DATABASE_NAME'),
       ssl: isProduct() && {
-        rejectUnauthorized: false
+        rejectUnauthorized: false,
       },
-      entities: [
-        User, Hobby,
-      ],
+      entities: [User, Hobby, CryptocurrencyMaster, CryptocurrencyDayData],
       synchronize: false,
       logging: this.configService.get<string>('DATABASE_LOG') === 'true',
       extra: {
         poolSize: 10,
-      }
+      },
     };
 
     return config;

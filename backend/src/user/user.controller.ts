@@ -1,5 +1,22 @@
-import { Body, Controller, Post, Get, Param, UseGuards, Req, ParseIntPipe } from '@nestjs/common';
-import { ApiCookieAuth, ApiCreatedResponse, ApiForbiddenResponse, ApiNotFoundResponse, ApiOkResponse, ApiParam, ApiTags } from '@nestjs/swagger';
+import {
+  Body,
+  Controller,
+  Post,
+  Get,
+  Param,
+  UseGuards,
+  Req,
+  ParseIntPipe,
+} from '@nestjs/common';
+import {
+  ApiCookieAuth,
+  ApiCreatedResponse,
+  ApiForbiddenResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiParam,
+  ApiTags,
+} from '@nestjs/swagger';
 import RequestWithUser from 'src/authentication/class/authentication.interface';
 import { CookieAuthenticationGuard } from 'src/authentication/cookieAuthentication.guard';
 import { AddHobbyDTO, RemoveHobbyDTO } from './class/user.dto';
@@ -9,13 +26,16 @@ import { UserService } from './user.service';
 @ApiTags('user')
 @Controller('user')
 export class UserController {
-  constructor(private service: UserService) { }
+  constructor(private service: UserService) {}
 
   @ApiOkResponse({ description: 'list取得時', type: UserListResponse })
   @ApiParam({ name: 'page', required: true })
   @ApiParam({ name: 'per', required: true })
   @Get('list/:page/:per')
-  async list(@Param('page', new ParseIntPipe()) page: number, @Param('per', new ParseIntPipe()) per: number) {
+  async list(
+    @Param('page', new ParseIntPipe()) page: number,
+    @Param('per', new ParseIntPipe()) per: number,
+  ) {
     return this.service.list(page, per);
   }
 
@@ -46,5 +66,4 @@ export class UserController {
   //   await this.service.removeHobbies(req.user, dto);
   //   return this.service.detail(req.user.id);
   // }
-
 }

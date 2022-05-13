@@ -1,4 +1,11 @@
-import { BadRequestException, HttpException, HttpStatus, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Hobby } from 'src/database/entities/hobby.entity';
 import { User } from 'src/database/entities/user.entity';
@@ -11,14 +18,14 @@ export class UserService {
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
     @InjectRepository(Hobby) private hobbyRepository: Repository<Hobby>,
-    private connection: Connection
-  ) { }
+    private connection: Connection,
+  ) {}
 
   async list(page: number, per: number) {
     const [list, total] = await this.userRepository.findAndCount({
       select: ['id', 'email', 'password', 'plainPassword'],
       order: {
-        id: 'ASC'
+        id: 'ASC',
       },
       skip: (page - 1) * per,
       take: per,
@@ -29,8 +36,8 @@ export class UserService {
   async detail(id: User['id']) {
     const user = await this.userRepository.findOne({
       relations: ['hobbies'],
-      where: { id: id }
-    })
+      where: { id: id },
+    });
     if (!user) {
       throw new NotFoundException();
     }
@@ -40,7 +47,9 @@ export class UserService {
 
   async addHobies(user: User, dto: AddHobbyDTO) {
     if (user.id !== dto.userId) {
-      throw new BadRequestException(`addHobies user id not equal loginUser: ${user.id} dto:${dto.userId}`);
+      throw new BadRequestException(
+        `addHobies user id not equal loginUser: ${user.id} dto:${dto.userId}`,
+      );
     }
 
     const queryRunner = this.connection.createQueryRunner();
@@ -59,7 +68,10 @@ export class UserService {
       await queryRunner.commitTransaction();
     } catch (e) {
       await queryRunner.rollbackTransaction();
-      throw new HttpException(`add hobby error`, HttpStatus.INTERNAL_SERVER_ERROR)
+      throw new HttpException(
+        `add hobby error`,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     } finally {
       await queryRunner.release();
     }
@@ -67,7 +79,9 @@ export class UserService {
 
   async removeHobbies(user: User, dto: RemoveHobbyDTO) {
     if (user.id !== dto.userId) {
-      throw new BadRequestException(`addHobies user id not equal loginUser: ${user.id} dto:${dto.userId}`);
+      throw new BadRequestException(
+        `addHobies user id not equal loginUser: ${user.id} dto:${dto.userId}`,
+      );
     }
 
     const queryRunner = this.connection.createQueryRunner();
@@ -76,7 +90,7 @@ export class UserService {
 
     try {
       const removeHobbies = await this.hobbyRepository.find({
-        where: { userId: user.id, id: In(dto.hobbyIds) }
+        where: { userId: user.id, id: In(dto.hobbyIds) },
       });
       if (removeHobbies.length > 0) {
         await queryRunner.manager.remove(removeHobbies);
@@ -84,7 +98,10 @@ export class UserService {
       }
     } catch (e) {
       await queryRunner.rollbackTransaction();
-      throw new HttpException(`add hobby error`, HttpStatus.INTERNAL_SERVER_ERROR)
+      throw new HttpException(
+        `add hobby error`,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     } finally {
       await queryRunner.release();
     }
@@ -93,7 +110,7 @@ export class UserService {
   async getByEmail(email: User['email']) {
     const user = await this.userRepository.findOne({ email: email });
     if (!user) {
-      throw new UnauthorizedException('email user not found')
+      throw new UnauthorizedException('email user not found');
     }
     return user;
   }
@@ -101,7 +118,7 @@ export class UserService {
   async getById(id: User['id']) {
     const user = await this.userRepository.findOne({ id: id });
     if (!user) {
-      throw new UnauthorizedException('user id not found')
+      throw new UnauthorizedException('user id not found');
     }
     return user;
   }

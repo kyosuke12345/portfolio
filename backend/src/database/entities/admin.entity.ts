@@ -1,17 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsString } from 'class-validator';
-import {
-  AfterLoad,
-  Column,
-  Entity,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-import { Hobby } from './hobby.entity';
+import { AfterLoad, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { MAX_DB_LENGTH } from './dbType';
 
-@Entity('users')
-export class User {
+@Entity('admin_info')
+export class AdminInfo {
   @ApiProperty()
   @PrimaryGeneratedColumn({ name: 'id', type: 'bigint' })
   id: number;
@@ -19,10 +12,10 @@ export class User {
   @ApiProperty()
   @IsEmail()
   @Column({
-    name: 'email',
+    name: 'user_id',
     unique: true,
     type: 'varchar',
-    length: MAX_DB_LENGTH.EMAIL,
+    length: MAX_DB_LENGTH.ADMIN_ID,
   })
   email: string;
 
@@ -34,18 +27,6 @@ export class User {
     length: MAX_DB_LENGTH.BCRYPT_PASSWORD,
   })
   password: string;
-
-  @ApiProperty()
-  @IsString()
-  @Column({
-    name: 'plain_password',
-    type: 'varchar',
-    length: MAX_DB_LENGTH.PLAIN_PASSWORD,
-  })
-  plainPassword: string;
-
-  @OneToMany(() => Hobby, (hobby) => hobby.user)
-  hobbies: Hobby[];
 
   @AfterLoad()
   afterLoad() {
