@@ -9,6 +9,7 @@ import { AuthenticationModule } from './authentication/authentication.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path'
 import { CronModule } from './cron/cron.module';
+import { CryptocurrencyMasterModule } from './cryptocurrency-master/cryptocurrency-master.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { CronModule } from './cron/cron.module';
     CoreModule,
     AuthenticationModule,
     CronModule,
+    CryptocurrencyMasterModule,
   ],
   controllers: [],
   providers: [],

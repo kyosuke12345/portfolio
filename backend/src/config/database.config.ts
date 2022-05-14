@@ -6,10 +6,11 @@ import { Hobby } from 'src/database/entities/hobby.entity';
 import { isProduct } from './enviroment';
 import { CryptocurrencyMaster } from 'src/database/entities/cryptocurrencyMaster.entity';
 import { CryptocurrencyDayData } from 'src/database/entities/cryptocurrencyDayData.entity';
+import { CryptocurrencyThreshold } from 'src/database/entities/cryptocurrencyThreshold.entity';
 
 @Injectable()
 export class DatabaseConfig implements TypeOrmOptionsFactory {
-  constructor(private readonly configService: ConfigService) {}
+  constructor(private readonly configService: ConfigService) { }
 
   createTypeOrmOptions(): TypeOrmModuleOptions {
     const config: TypeOrmModuleOptions = {
@@ -22,7 +23,7 @@ export class DatabaseConfig implements TypeOrmOptionsFactory {
       ssl: isProduct() && {
         rejectUnauthorized: false,
       },
-      entities: [User, Hobby, CryptocurrencyMaster, CryptocurrencyDayData],
+      entities: [User, Hobby, CryptocurrencyMaster, CryptocurrencyDayData, CryptocurrencyThreshold],
       synchronize: false,
       logging: this.configService.get<string>('DATABASE_LOG') === 'true',
       extra: {

@@ -1,5 +1,4 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Hobby } from "src/database/entities/hobby.entity";
 import { User } from "src/database/entities/user.entity";
 import { PaginationListResponse } from "src/utils/common.response.util";
 

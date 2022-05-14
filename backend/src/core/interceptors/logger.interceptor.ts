@@ -24,7 +24,7 @@ export class LoggingInterceptor implements NestInterceptor {
     return next.handle().pipe(
       catchError((err) => {
         this.errorLogger.error(err?.status ?? err?.statusCode ?? 500, err?.message ?? '', requestData);
-        return throwError(() => new Error(err));
+        return throwError(() => err);
       }),
     );
     // .pipe(tap(() => console.log(`After... ${Date.now() - now}ms`)));

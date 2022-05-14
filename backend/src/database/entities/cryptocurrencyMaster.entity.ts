@@ -1,3 +1,4 @@
+import { CreateCryptocurrencyDTO, UpdateCryptocurrencyDTO } from 'src/cryptocurrency-master/class/cryptocurrency-master.dto';
 import {
   AfterLoad,
   Column,
@@ -43,5 +44,17 @@ export class CryptocurrencyMaster {
   @AfterLoad()
   afterLoad() {
     this.id = Number(this.id);
+  }
+
+  static generate(dto: CreateCryptocurrencyDTO): CryptocurrencyMaster {
+    let res = new CryptocurrencyMaster();
+    res.type = dto.type;
+    res.name = dto.name;
+    return res;
+  }
+
+  static update(data: CryptocurrencyMaster, dto: UpdateCryptocurrencyDTO): void {
+    data.type = dto.type;
+    data.name = dto.name;
   }
 }

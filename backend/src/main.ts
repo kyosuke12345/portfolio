@@ -8,10 +8,12 @@ import * as passport from 'passport';
 import helmet from 'helmet';
 import { createClient } from 'redis';
 import { isProduct } from './config/enviroment';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api/v1/');
+  app.useGlobalPipes(new ValidationPipe());
 
   // helmet
   app.use(
@@ -29,8 +31,8 @@ async function bootstrap() {
     url: isProduct ? configService.get('REDIS_TLS_URL') : undefined,
     tls: isProduct()
       ? {
-          rejectUnauthorized: false,
-        }
+        rejectUnauthorized: false,
+      }
       : undefined,
   });
   app.use(
