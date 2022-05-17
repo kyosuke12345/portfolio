@@ -58,7 +58,7 @@ export class CryptocurrencyDayData {
   afterLoad() {
     this.id = Number(this.id);
     this.day = new Date(this.day);
-  }
+  } 
 
   static generate(param: GenerateType): CryptocurrencyDayData {
     const res = new CryptocurrencyDayData();

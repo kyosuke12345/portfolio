@@ -1,14 +1,15 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule } from './config/config.module';
-import { DatabaseConfig } from './config/database.config';
+import { ConfigModule } from '../libs/lib/src/config/config.module';
+import { DatabaseConfig } from '../libs/lib/src/config/database.config';
 import { UserModule } from './user/user.module';
-import { CustomLoggerModule } from './custom-logger/custom-logger.module';
-import { CoreModule } from './core/core.module';
+import { CustomLoggerModule } from '../libs/lib/src/custom-logger/custom-logger.module';
+import { CoreModule } from '../libs/lib/src/core/core.module';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path'
 import { CronModule } from './cron/cron.module';
+import { CryptocurrencyMasterModule } from './cryptocurrency-master/cryptocurrency-master.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { CronModule } from './cron/cron.module';
     CoreModule,
     AuthenticationModule,
     CronModule,
+    CryptocurrencyMasterModule,
   ],
   controllers: [],
   providers: [],

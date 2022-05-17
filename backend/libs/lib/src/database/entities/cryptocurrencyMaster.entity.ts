@@ -1,3 +1,4 @@
+import { CreateCryptocurrencyDTO, UpdateCryptocurrencyDTO } from 'src/cryptocurrency-master/class/cryptocurrency-master.dto';
 import {
   AfterLoad,
   Column,
@@ -34,6 +35,20 @@ export class CryptocurrencyMaster {
   })
   name: string;
 
+  @Column({
+    name: 'min_threshold',
+    type: 'integer',
+    nullable: true,
+  })
+  minThreshold: number;
+
+  @Column({
+    name: 'max_threshold',
+    type: 'integer',
+    nullable: true,
+  })
+  maxThreshold: number;
+
   @OneToMany(
     () => CryptocurrencyDayData,
     (minutesData) => minutesData.cryptocurrencyType,
@@ -43,5 +58,21 @@ export class CryptocurrencyMaster {
   @AfterLoad()
   afterLoad() {
     this.id = Number(this.id);
+  }
+
+  static generate(dto: CreateCryptocurrencyDTO): CryptocurrencyMaster {
+    let res = new CryptocurrencyMaster();
+    res.type = dto.type;
+    res.name = dto.name;
+    res.minThreshold = dto.minThreshold;
+    res.maxThreshold = dto.maxThreshold;
+    return res;
+  }
+
+  static update(data: CryptocurrencyMaster, dto: UpdateCryptocurrencyDTO): void {
+    data.type = dto.type;
+    data.name = dto.name;
+    data.minThreshold = dto.minThreshold;
+    data.maxThreshold = dto.maxThreshold;
   }
 }

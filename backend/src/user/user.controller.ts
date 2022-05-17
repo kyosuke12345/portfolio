@@ -10,7 +10,6 @@ import {
 } from '@nestjs/common';
 import {
   ApiCookieAuth,
-  ApiCreatedResponse,
   ApiForbiddenResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
@@ -19,14 +18,13 @@ import {
 } from '@nestjs/swagger';
 import RequestWithUser from 'src/authentication/class/authentication.interface';
 import { CookieAuthenticationGuard } from 'src/authentication/cookieAuthentication.guard';
-import { AddHobbyDTO, RemoveHobbyDTO } from './class/user.dto';
 import { UserDetailResponse, UserListResponse } from './class/user.response';
 import { UserService } from './user.service';
 
 @ApiTags('user')
 @Controller('user')
 export class UserController {
-  constructor(private service: UserService) {}
+  constructor(private service: UserService) { }
 
   @ApiOkResponse({ description: 'list取得時', type: UserListResponse })
   @ApiParam({ name: 'page', required: true })

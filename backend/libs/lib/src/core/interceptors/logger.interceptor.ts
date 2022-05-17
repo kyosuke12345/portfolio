@@ -6,8 +6,8 @@ import {
 } from '@nestjs/common';
 import { Request } from 'express';
 import { catchError, Observable, throwError } from 'rxjs';
-import { AccessLoggerService } from 'src/custom-logger/access-logger.service';
-import { ErrorLoggerService } from 'src/custom-logger/error-logger.service';
+import { AccessLoggerService } from 'libs/lib/src/custom-logger/access-logger.service';
+import { ErrorLoggerService } from 'libs/lib/src/custom-logger/error-logger.service';
 
 @Injectable()
 export class LoggingInterceptor implements NestInterceptor {
@@ -24,7 +24,7 @@ export class LoggingInterceptor implements NestInterceptor {
     return next.handle().pipe(
       catchError((err) => {
         this.errorLogger.error(err?.status ?? err?.statusCode ?? 500, err?.message ?? '', requestData);
-        return throwError(() => new Error(err));
+        return throwError(() => err);
       }),
     );
     // .pipe(tap(() => console.log(`After... ${Date.now() - now}ms`)));

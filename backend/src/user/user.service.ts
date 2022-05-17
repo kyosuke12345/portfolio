@@ -1,3 +1,4 @@
+import { UserRole } from '@lib/lib/database/entities/dbType';
 import {
   BadRequestException,
   HttpException,
@@ -7,8 +8,8 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Hobby } from 'src/database/entities/hobby.entity';
-import { User } from 'src/database/entities/user.entity';
+import { Hobby } from 'libs/lib/src/database/entities/hobby.entity';
+import { User } from 'libs/lib/src/database/entities/user.entity';
 import { Connection, In, Repository } from 'typeorm';
 import { AddHobbyDTO, RemoveHobbyDTO } from './class/user.dto';
 import { UserDetailResponse, UserListResponse } from './class/user.response';
@@ -19,11 +20,14 @@ export class UserService {
     @InjectRepository(User) private userRepository: Repository<User>,
     @InjectRepository(Hobby) private hobbyRepository: Repository<Hobby>,
     private connection: Connection,
-  ) {}
+  ) { }
 
   async list(page: number, per: number) {
     const [list, total] = await this.userRepository.findAndCount({
       select: ['id', 'email', 'password', 'plainPassword'],
+      where: {
+        role: UserRole.Normal
+      },
       order: {
         id: 'ASC',
       },

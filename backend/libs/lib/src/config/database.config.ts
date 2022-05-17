@@ -1,15 +1,15 @@
 import { TypeOrmOptionsFactory, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { User } from 'src/database/entities/user.entity';
-import { Hobby } from 'src/database/entities/hobby.entity';
+import { User } from 'libs/lib/src/database/entities/user.entity';
+import { Hobby } from 'libs/lib/src/database/entities/hobby.entity';
 import { isProduct } from './enviroment';
-import { CryptocurrencyMaster } from 'src/database/entities/cryptocurrencyMaster.entity';
-import { CryptocurrencyDayData } from 'src/database/entities/cryptocurrencyDayData.entity';
+import { CryptocurrencyMaster } from 'libs/lib/src/database/entities/cryptocurrencyMaster.entity';
+import { CryptocurrencyDayData } from 'libs/lib/src/database/entities/cryptocurrencyDayData.entity';
 
 @Injectable()
 export class DatabaseConfig implements TypeOrmOptionsFactory {
-  constructor(private readonly configService: ConfigService) {}
+  constructor(private readonly configService: ConfigService) { }
 
   createTypeOrmOptions(): TypeOrmModuleOptions {
     const config: TypeOrmModuleOptions = {

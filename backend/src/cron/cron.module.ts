@@ -1,14 +1,15 @@
+import { CryptocurrencyMaster } from '@lib/lib/database/entities/cryptocurrencyMaster.entity';
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CoreModule } from 'src/core/core.module';
-import { CryptocurrencyDayData } from 'src/database/entities/cryptocurrencyDayData.entity';
+import { CoreModule } from 'libs/lib/src/core/core.module';
+import { CryptocurrencyDayData } from 'libs/lib/src/database/entities/cryptocurrencyDayData.entity';
 import { CronService } from './cron.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([CryptocurrencyDayData]),
+    TypeOrmModule.forFeature([CryptocurrencyDayData, CryptocurrencyMaster]),
     ScheduleModule.forRoot(),
     HttpModule,
     CoreModule,
@@ -16,4 +17,4 @@ import { CronService } from './cron.service';
   providers: [CronService],
   exports: [CronService],
 })
-export class CronModule {}
+export class CronModule { }
