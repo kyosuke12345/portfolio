@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsString } from 'class-validator';
+import { IsEmail, IsEnum, IsString } from 'class-validator';
 import {
   AfterLoad,
   Column,
@@ -8,7 +8,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Hobby } from './hobby.entity';
-import { MAX_DB_LENGTH } from './dbType';
+import { MAX_DB_LENGTH, UserRole } from './dbType';
 
 @Entity('users')
 export class User {
@@ -43,6 +43,16 @@ export class User {
     length: MAX_DB_LENGTH.PLAIN_PASSWORD,
   })
   plainPassword: string;
+
+  @ApiProperty()
+  @IsEnum(UserRole)
+  @Column({
+    name: 'role',
+    type: 'varchar',
+    length: MAX_DB_LENGTH.ROLE,
+    default: UserRole.Normal
+  })
+  role: UserRole;
 
   @OneToMany(() => Hobby, (hobby) => hobby.user)
   hobbies: Hobby[];

@@ -6,14 +6,12 @@ import { addYears, differenceInYears } from 'date-fns';
 import { lastValueFrom, map } from 'rxjs';
 import { ErrorLoggerService } from 'libs/lib/src/custom-logger/error-logger.service';
 import { CryptocurrencyDayData } from 'libs/lib/src/database/entities/cryptocurrencyDayData.entity';
-import { CRYPTOCURRENCY_TYPE } from 'libs/lib/src/database/entities/dbType';
 import { Repository } from 'typeorm';
+import { CryptocurrencyMaster } from '@lib/lib/database/entities/cryptocurrencyMaster.entity';
 
 type LiquidResponse = {
   average_price: string;
 };
-
-const OVER_PRICE = 300000;
 
 @Injectable()
 export class CronService {
@@ -22,6 +20,7 @@ export class CronService {
     private errorLogger: ErrorLoggerService,
     @InjectRepository(CryptocurrencyDayData)
     private dayDataRepository: Repository<CryptocurrencyDayData>,
+    @InjectRepository(CryptocurrencyMaster) private readonly cryptocurrencyMasterRepository: Repository<CryptocurrencyMaster>
   ) { }
   isSendMail = false;
   isSendErrorMail = false;
@@ -35,7 +34,7 @@ export class CronService {
     this.errorLogger.log(`paper trail send mail: ${subject} ${text}`);
   }
 
-  // @Cron(CronExpression.EVERY_DAY_AT_1AM)
+  @Cron(CronExpression.EVERY_DAY_AT_1AM)
   async deleteData() {
     const nowDate = new Date();
     const twoYearsBeforeDate = addYears(nowDate, -2);
@@ -47,21 +46,36 @@ export class CronService {
       .execute();
   }
 
-  // @Cron(CronExpression.EVERY_MINUTE)
+  @Cron(CronExpression.EVERY_MINUTE)
   async getLiquidSOL() {
     try {
       const nowDate = new Date();
-      for (const key in CRYPTOCURRENCY_TYPE) {
-        const response = await lastValueFrom(
-          this.httpService
-            .get<LiquidResponse>(
-              `https://api.liquid.com/products/${CRYPTOCURRENCY_TYPE[key]}`,
-            )
-            .pipe(map((res) => res.data)),
-        );
-        const dayData = await this.dayDataRepository.findOne({
+      const cryptocurrencyList = await this.cryptocurrencyMasterRepository.find({
+        order: {
+          id: 'ASC'
+        }
+      })
+      for (const cryptocurrency of cryptocurrencyList) {
+        const type = cryptocurrency.type;
+        let response: LiquidResponse | null = null;
+        try {
+          response = await lastValueFrom(
+            this.httpService
+              .get<LiquidResponse>(
+                `https://api.liquid.com/products/${type}`,
+              )
+              .pipe(map((res) => res.data)),
+          );
+        } catch (e) {
+          this.sendEmail('apiの取得に失敗しました。', `type: ${type}`)
+          continue;
+        }
+        if (response === null) {
+          continue;
+        }
+        let dayData = await this.dayDataRepository.findOne({
           where: {
-            cryptocurrencyType: CRYPTOCURRENCY_TYPE[key],
+            cryptocurrencyType: type,
             day: nowDate,
           },
         });
@@ -70,33 +84,36 @@ export class CronService {
           // 新規登録
           const addData = CryptocurrencyDayData.generate({
             price: nowPrice,
-            type: CRYPTOCURRENCY_TYPE[key],
+            type: type,
             day: nowDate,
           });
-          // awaitしなくてOK
-          this.dayDataRepository.save(addData);
+          dayData = await this.dayDataRepository.save(addData);
         } else {
           // 更新
           CryptocurrencyDayData.update(dayData, { price: nowPrice });
-          // awaitしなくてOK
-          this.dayDataRepository.save(dayData);
+          dayData = await this.dayDataRepository.save(dayData);
         }
-      }
 
-      // TODO 後で修正
-      const response = await lastValueFrom(
-        this.httpService
-          .get<LiquidResponse>('https://api.liquid.com/products/855')
-          .pipe(map((res) => res.data)),
-      );
+        // 閾値のチェック
+        const cryptocurrencyName = cryptocurrency.name;
+        if (cryptocurrency.minThreshold !== null && cryptocurrency.minThreshold >= nowPrice) {
+          if (!this.isSendMail) {
+            this.sendEmail(
+              `${cryptocurrencyName}の価格が${cryptocurrency.minThreshold}を下回りました。`,
+              `現在の平均価格：${nowPrice}`,
+            );
+            this.isSendMail = true;
+          }
+        }
 
-      if (OVER_PRICE <= Number(response.average_price)) {
-        if (!this.isSendMail) {
-          this.sendEmail(
-            `Liquidの通知SOLが${OVER_PRICE}を超えました。`,
-            `現在の平均価格：${response.average_price}`,
-          );
-          this.isSendMail = true;
+        if (cryptocurrency.maxThreshold !== null && cryptocurrency.maxThreshold <= nowPrice) {
+          if (!this.isSendMail) {
+            this.sendEmail(
+              `${cryptocurrencyName}の価格が${cryptocurrency.maxThreshold}を超えました。`,
+              `現在の平均価格：${nowPrice}`,
+            );
+            this.isSendMail = true;
+          }
         }
       }
     } catch {

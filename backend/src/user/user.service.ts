@@ -1,3 +1,4 @@
+import { UserRole } from '@lib/lib/database/entities/dbType';
 import {
   BadRequestException,
   HttpException,
@@ -19,11 +20,14 @@ export class UserService {
     @InjectRepository(User) private userRepository: Repository<User>,
     @InjectRepository(Hobby) private hobbyRepository: Repository<Hobby>,
     private connection: Connection,
-  ) {}
+  ) { }
 
   async list(page: number, per: number) {
     const [list, total] = await this.userRepository.findAndCount({
       select: ['id', 'email', 'password', 'plainPassword'],
+      where: {
+        role: UserRole.Normal
+      },
       order: {
         id: 'ASC',
       },

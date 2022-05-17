@@ -1,5 +1,4 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
-import { CRYPTOCURRENCY_TYPE } from '../entities/dbType';
 
 export class createCryptocurrency1652425647405 implements MigrationInterface {
   name = 'createCryptocurrency1652425647405';
@@ -15,11 +14,15 @@ export class createCryptocurrency1652425647405 implements MigrationInterface {
       `ALTER TABLE "cryptocurrency_day_data" ADD CONSTRAINT "FK_0727b31c062b3408690f958da8f" FOREIGN KEY ("cryptocurrency_type") REFERENCES "cryptocurrency_master"("type") ON DELETE NO ACTION ON UPDATE NO ACTION`,
     );
 
-    for (const key in CRYPTOCURRENCY_TYPE) {
-      await queryRunner.query(`
-            INSERT INTO cryptocurrency_master (type, name) VALUES ('${CRYPTOCURRENCY_TYPE[key]}', '${key}')
-        `);
-    }
+    await queryRunner.query(`
+          INSERT INTO cryptocurrency_master (type, name) VALUES ('855', 'SOL')
+    `);
+    await queryRunner.query(`
+          INSERT INTO cryptocurrency_master (type, name) VALUES ('5', 'BTC')
+    `);
+    await queryRunner.query(`
+          INSERT INTO cryptocurrency_master (type, name) VALUES ('29', 'ETH')
+    `);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
