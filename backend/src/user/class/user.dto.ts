@@ -6,9 +6,9 @@ import {
   IsString,
   MaxLength,
 } from 'class-validator';
-import { User } from 'src/database/entities/user.entity';
-import { Hobby } from 'src/database/entities/hobby.entity';
-import { MAX_DB_LENGTH } from 'src/database/entities/dbType';
+import { User } from 'libs/lib/src/database/entities/user.entity';
+import { Hobby } from 'libs/lib/src/database/entities/hobby.entity';
+import { MAX_DB_LENGTH } from 'libs/lib/src/database/entities/dbType';
 
 export class UserLoginDTO {
   @ApiProperty({ type: String, default: 'test@gmail.com' })

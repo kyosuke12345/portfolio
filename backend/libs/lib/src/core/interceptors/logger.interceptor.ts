@@ -6,8 +6,8 @@ import {
 } from '@nestjs/common';
 import { Request } from 'express';
 import { catchError, Observable, throwError } from 'rxjs';
-import { AccessLoggerService } from 'src/custom-logger/access-logger.service';
-import { ErrorLoggerService } from 'src/custom-logger/error-logger.service';
+import { AccessLoggerService } from 'libs/lib/src/custom-logger/access-logger.service';
+import { ErrorLoggerService } from 'libs/lib/src/custom-logger/error-logger.service';
 
 @Injectable()
 export class LoggingInterceptor implements NestInterceptor {

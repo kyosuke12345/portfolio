@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { User } from "src/database/entities/user.entity";
-import { PaginationListResponse } from "src/utils/common.response.util";
+import { User } from "libs/lib/src/database/entities/user.entity";
+import { PaginationListResponse } from "libs/lib/src/utils/common.response.util";
 
 export class UserListItemResponse {
   @ApiProperty()

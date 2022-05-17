@@ -1,7 +1,7 @@
 const { DATABASE_HOST, DATABASE_PORT, DATABASE_NAME, DATABASE_USER, DATABASE_PASSWORD } = process.env
 
 if (!DATABASE_HOST || !DATABASE_PORT || !DATABASE_NAME || !DATABASE_USER || !DATABASE_PASSWORD) {
-    throw Error("DB周りの環境変数の設定が不足しています")
+  throw Error("DB周りの環境変数の設定が不足しています")
 }
 
 module.exports = {
@@ -17,10 +17,10 @@ module.exports = {
   ssl: {
     rejectUnauthorized: false,
   },
-  entities: ['src/database/entities/**/*entity.ts'],
-  migrations: ['src/database/migrations/**/*.ts'],
+  entities: ['libs/lib/src/database/entities/**/*entity.ts'],
+  migrations: ['libs/lib/src/database/migrations/**/*.ts'],
   cli: {
-    entitiesDir: 'src/database/entities',
-    migrationsDir: 'src/database/migrations',
+    entitiesDir: 'libs/lib/src/database/entities',
+    migrationsDir: 'libs/lib/src/database/migrations',
   },
 };

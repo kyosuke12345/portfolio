@@ -1,10 +1,11 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CryptocurrencyMaster } from 'src/database/entities/cryptocurrencyMaster.entity';
-import { DuplicateUniqueKeyException } from 'src/utils/custom.error.class';
+import { CryptocurrencyMaster } from 'libs/lib/src/database/entities/cryptocurrencyMaster.entity';
+import { DuplicateUniqueKeyException } from 'libs/lib/src/utils/custom.error.class';
 import { Not, Repository } from 'typeorm';
 import { CreateCryptocurrencyDTO, UpdateCryptocurrencyDTO } from './class/cryptocurrency-master.dto';
 import { CryptocurrencyMasterListResponse, CryptocurrencyMasterListItemResponse, CryptocurrencyMasterDetailResponse } from './class/cryptocurrency-master.response';
+import { isNotNullOrUndefined } from 'type-guards'
 
 @Injectable()
 export class CryptocurrencyMasterService {
@@ -12,7 +13,6 @@ export class CryptocurrencyMasterService {
 
   async list(page: number, per: number): Promise<CryptocurrencyMasterListResponse> {
     const [list, total] = await this.cryptoMasterRepository.findAndCount({
-      select: ['id', 'type', 'name'],
       order: {
         id: 'ASC',
       },
@@ -41,6 +41,8 @@ export class CryptocurrencyMasterService {
       throw new DuplicateUniqueKeyException(`cryptocurrency_master create already type error: ${dto.type}`);
     }
 
+    this.isCreateOrUpdateError(dto)
+
     const newData = await this.cryptoMasterRepository.save(CryptocurrencyMaster.generate(dto));
     return CryptocurrencyMasterDetailResponse.generate(newData);
   }
@@ -55,6 +57,8 @@ export class CryptocurrencyMasterService {
     if (count > 0) {
       throw new DuplicateUniqueKeyException(`cryptocurrency_master update already type error: ${dto.type}`);
     }
+
+    this.isCreateOrUpdateError(dto)
 
     const targetData = await this.cryptoMasterRepository.findOne(id);
     if (!targetData) {
@@ -71,5 +75,11 @@ export class CryptocurrencyMasterService {
       throw new NotFoundException(`cryptocurrency_master delete not found. id: ${id}`)
     }
     await this.cryptoMasterRepository.remove(targetData);
+  }
+
+  private isCreateOrUpdateError(dto: CreateCryptocurrencyDTO | UpdateCryptocurrencyDTO): void {
+    if (isNotNullOrUndefined(dto.maxThreshold) && isNotNullOrUndefined(dto.minThreshold)) {
+      throw new BadRequestException('min >= max')
+    }
   }
 }

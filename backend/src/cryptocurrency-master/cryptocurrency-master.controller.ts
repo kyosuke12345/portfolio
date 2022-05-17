@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiNotFoundResponse, ApiOkResponse, ApiParam, ApiTags } from '@nestjs/swagger';
-import { ApiDuplicateuniqueKeyErrorResponse } from 'src/utils/custom.error.class';
+import { ApiDuplicateuniqueKeyErrorResponse } from 'libs/lib/src/utils/custom.error.class';
 import { CreateCryptocurrencyDTO, UpdateCryptocurrencyDTO } from './class/cryptocurrency-master.dto';
 import { CryptocurrencyMasterDetailResponse, CryptocurrencyMasterListResponse } from './class/cryptocurrency-master.response';
 import { CryptocurrencyMasterService } from './cryptocurrency-master.service';

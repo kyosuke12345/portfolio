@@ -6362,7 +6362,7 @@ tslib@^2.0.1:
 
 tsutils@^3.21.0:
   version "3.21.0"
-  resolved "https://registry.npmjs.org/tsutils/-/tsutils-3.21.0.tgz"
+  resolved "https://registry.yarnpkg.com/tsutils/-/tsutils-3.21.0.tgz#b48717d394cea6c1e096983eed58e9d61715b623"
   integrity sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==
   dependencies:
     tslib "^1.8.1"
@@ -6395,6 +6395,11 @@ type-fest@^0.21.3:
   version "0.21.3"
   resolved "https://registry.npmjs.org/type-fest/-/type-fest-0.21.3.tgz"
   integrity sha512-t0rzBq87m3fVcduHDUFhKmyyX+9eo6WQjZvf51Ea/M0Q7+T374Jp1aUiyUl0GKxp8M/OETVHSDvmkyPgvX+X2w==
+
+type-guards@^0.15.0:
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/type-guards/-/type-guards-0.15.0.tgz#2f7b052518400e24e87523bb338ff765801884b4"
+  integrity sha512-t1Yn7m+T011LfF0dTen5HtOU/Ax5sscqf37gz44lL94T0u7VD2mt15qlrvtNbBzYHrKg+Zpufmc/NBmjBVALYA==
 
 type-is@^1.6.4, type-is@~1.6.18:
   version "1.6.18"

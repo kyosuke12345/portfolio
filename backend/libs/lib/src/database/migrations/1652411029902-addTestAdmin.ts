@@ -1,4 +1,4 @@
-import { isProduct } from 'src/config/enviroment';
+import { isProduct } from 'libs/lib/src/config/enviroment';
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 import * as bcrypt from 'bcrypt';

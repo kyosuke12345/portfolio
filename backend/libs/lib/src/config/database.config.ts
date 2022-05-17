@@ -1,12 +1,11 @@
 import { TypeOrmOptionsFactory, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { User } from 'src/database/entities/user.entity';
-import { Hobby } from 'src/database/entities/hobby.entity';
+import { User } from 'libs/lib/src/database/entities/user.entity';
+import { Hobby } from 'libs/lib/src/database/entities/hobby.entity';
 import { isProduct } from './enviroment';
-import { CryptocurrencyMaster } from 'src/database/entities/cryptocurrencyMaster.entity';
-import { CryptocurrencyDayData } from 'src/database/entities/cryptocurrencyDayData.entity';
-import { CryptocurrencyThreshold } from 'src/database/entities/cryptocurrencyThreshold.entity';
+import { CryptocurrencyMaster } from 'libs/lib/src/database/entities/cryptocurrencyMaster.entity';
+import { CryptocurrencyDayData } from 'libs/lib/src/database/entities/cryptocurrencyDayData.entity';
 
 @Injectable()
 export class DatabaseConfig implements TypeOrmOptionsFactory {
@@ -23,7 +22,7 @@ export class DatabaseConfig implements TypeOrmOptionsFactory {
       ssl: isProduct() && {
         rejectUnauthorized: false,
       },
-      entities: [User, Hobby, CryptocurrencyMaster, CryptocurrencyDayData, CryptocurrencyThreshold],
+      entities: [User, Hobby, CryptocurrencyMaster, CryptocurrencyDayData],
       synchronize: false,
       logging: this.configService.get<string>('DATABASE_LOG') === 'true',
       extra: {

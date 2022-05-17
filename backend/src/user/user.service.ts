@@ -7,8 +7,8 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Hobby } from 'src/database/entities/hobby.entity';
-import { User } from 'src/database/entities/user.entity';
+import { Hobby } from 'libs/lib/src/database/entities/hobby.entity';
+import { User } from 'libs/lib/src/database/entities/user.entity';
 import { Connection, In, Repository } from 'typeorm';
 import { AddHobbyDTO, RemoveHobbyDTO } from './class/user.dto';
 import { UserDetailResponse, UserListResponse } from './class/user.response';

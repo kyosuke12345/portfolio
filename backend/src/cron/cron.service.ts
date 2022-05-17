@@ -4,9 +4,9 @@ import { Cron, CronExpression } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
 import { addYears, differenceInYears } from 'date-fns';
 import { lastValueFrom, map } from 'rxjs';
-import { ErrorLoggerService } from 'src/custom-logger/error-logger.service';
-import { CryptocurrencyDayData } from 'src/database/entities/cryptocurrencyDayData.entity';
-import { CRYPTOCURRENCY_TYPE } from 'src/database/entities/dbType';
+import { ErrorLoggerService } from 'libs/lib/src/custom-logger/error-logger.service';
+import { CryptocurrencyDayData } from 'libs/lib/src/database/entities/cryptocurrencyDayData.entity';
+import { CRYPTOCURRENCY_TYPE } from 'libs/lib/src/database/entities/dbType';
 import { Repository } from 'typeorm';
 
 type LiquidResponse = {
@@ -22,7 +22,7 @@ export class CronService {
     private errorLogger: ErrorLoggerService,
     @InjectRepository(CryptocurrencyDayData)
     private dayDataRepository: Repository<CryptocurrencyDayData>,
-  ) {}
+  ) { }
   isSendMail = false;
   isSendErrorMail = false;
 
@@ -35,7 +35,7 @@ export class CronService {
     this.errorLogger.log(`paper trail send mail: ${subject} ${text}`);
   }
 
-  @Cron(CronExpression.EVERY_DAY_AT_1AM)
+  // @Cron(CronExpression.EVERY_DAY_AT_1AM)
   async deleteData() {
     const nowDate = new Date();
     const twoYearsBeforeDate = addYears(nowDate, -2);
@@ -47,7 +47,7 @@ export class CronService {
       .execute();
   }
 
-  @Cron(CronExpression.EVERY_MINUTE)
+  // @Cron(CronExpression.EVERY_MINUTE)
   async getLiquidSOL() {
     try {
       const nowDate = new Date();

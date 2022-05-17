@@ -8,10 +8,10 @@ module.exports = {
   database: 'portfolio',
   synchronize: false,
   logging: true,
-  entities: ['src/database/entities/**/*entity.ts'],
-  migrations: ['src/database/migrations/**/*.ts'],
+  entities: ['libs/lib/src/database/entities/**/*entity.ts'],
+  migrations: ['libs/lib/src/database/migrations/**/*.ts'],
   cli: {
-    entitiesDir: 'src/database/entities',
-    migrationsDir: 'src/database/migrations',
+    entitiesDir: 'libs/lib/src/database/entities',
+    migrationsDir: 'libs/lib/src/database/migrations',
   },
 };
