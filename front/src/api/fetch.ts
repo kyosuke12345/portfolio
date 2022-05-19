@@ -1,3 +1,5 @@
+import { isUndefined } from "utils/typeguard";
+
 const wrap = <T>(task: Promise<Response>): Promise<T> => {
   return new Promise((resolve, reject) => {
     task
@@ -51,6 +53,20 @@ export function post<T = unknown>(url: string, params: unknown): Promise<T> {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(params),
+  };
+  return wrapperFetch(url, init);
+}
+
+export function del<T = unknown>(url: string, params?: unknown): Promise<T> {
+  if (!isUndefined(params) && typeof params !== "object") {
+    throw new Error("del param error");
+  }
+  const init: RequestInit = {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: isUndefined(params) ? undefined : JSON.stringify(params),
   };
   return wrapperFetch(url, init);
 }

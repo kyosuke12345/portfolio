@@ -10,6 +10,10 @@ const errorMessages = {
     `${maxLength}文字以内で入力してください`,
   minLength: (minLength: number): string =>
     `${minLength}文字以上で入力してください`,
+  minValue: (value: number) => `${value}以上を入力してください。`,
+  maxValue: (value: number) => `${value}以下を入力してください。`,
+  lt: (otherFiledLabel: string) => `${otherFiledLabel}以下を入力してください。`,
+  mt: (otherFiledLabel: string) => `${otherFiledLabel}以上を入力してください。`,
 };
 
 export const required: Validator = (value) => {
@@ -82,3 +86,41 @@ export const email: Validator = (value) => {
     return errorMessages.email;
   }
 };
+
+export const minValue: (minValue: number) => Validator =
+  (minValue) => (value) => {
+    if (isNumber(value) && value < minValue) {
+      return errorMessages.minValue(minValue);
+    }
+    return undefined;
+  };
+
+export const maxValue: (maxValue: number) => Validator =
+  (maxValue) => (value) => {
+    if (isNumber(value) && value > maxValue) {
+      return errorMessages.maxValue(maxValue);
+    }
+    return undefined;
+  };
+
+export const lt: (otherFiledName: string, label: string) => Validator =
+  (otherField, label) => (value, allValues) => {
+    const otherValue = allValues[otherField];
+    if (isNumber(otherValue) && isNumber(value)) {
+      if (otherValue > value) {
+        return errorMessages.lt(label);
+      }
+    }
+    return undefined;
+  };
+
+export const mt: (otherFiledName: string, label: string) => Validator =
+  (otherField, label) => (value, allValues) => {
+    const otherValue = allValues[otherField];
+    if (isNumber(otherValue) && isNumber(value)) {
+      if (otherValue < value) {
+        return errorMessages.mt(label);
+      }
+    }
+    return undefined;
+  };

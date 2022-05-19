@@ -11,6 +11,8 @@ import { RootState } from "redux/rootReducer";
 import UserDetailScreen from "pages/userdetail/index";
 import DashboardLayout from "pages/BaseLayout";
 import PortFolioScreen from "pages/portfolio";
+import CryptoCurrencyMaster from "pages/cryptocurrencymaster";
+import CryptoCurrencyTimeline from "pages/cryptocurrencytimeline";
 
 // NOTE: userRoutesがまだ使用できないので、Routeで記載する
 
@@ -46,6 +48,14 @@ const App: React.VFC = () => {
               <Route
                 path={path.dashboardPath.user.href}
                 element={<UserDetailScreen />}
+              />
+              <Route
+                path={path.adminDashboardPath.cryptoCurrency.href}
+                element={<CryptoCurrencyMaster />}
+              />
+              <Route
+                path={path.adminDashboardPath.cryptoTimeline.href}
+                element={<CryptoCurrencyTimeline />}
               />
             </Route>
           </Routes>

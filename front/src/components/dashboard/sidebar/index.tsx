@@ -7,6 +7,7 @@ import NavItem, { NavItemProps } from "../navbar/NavItem";
 
 export type DashBoardSideBarProps = {
   isMobile: boolean;
+  isAdmin?: boolean;
   onCloseNav: ModalProps["onClose"];
   openNav: boolean;
   onClickNav: NavItemProps["onClickNav"];
@@ -22,6 +23,7 @@ const DashboardSidebar: React.VFC<DashBoardSideBarProps> = ({
   onCloseNav,
   onClickNav,
   openNav,
+  isAdmin,
 }) => {
   const SideBarContent = useMemo(
     () => (
@@ -37,10 +39,22 @@ const DashboardSidebar: React.VFC<DashBoardSideBarProps> = ({
               onClickNav={onClickNav}
             />
           ))}
+          {/** 管理画面 */}
+          {isAdmin &&
+            Object.values(path.adminDashboardPath).map((v, index) => (
+              <NavItem
+                key={index}
+                href={v.href}
+                title={v.title}
+                url={v.href}
+                iconType={v.iconType}
+                onClickNav={onClickNav}
+              />
+            ))}
         </List>
       </Box>
     ),
-    [onClickNav]
+    [onClickNav, isAdmin]
   );
 
   return (

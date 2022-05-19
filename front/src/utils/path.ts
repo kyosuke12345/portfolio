@@ -13,6 +13,11 @@ type DashBoardPaths = {
   user: DashBoardPath;
 };
 
+type AdminDashBoardPaths = {
+  cryptoCurrency: DashBoardPath;
+  cryptoTimeline: DashBoardPath;
+};
+
 const dashboardPath: DashBoardPaths = {
   about: {
     href: "/",
@@ -36,4 +41,20 @@ const dashboardPath: DashBoardPaths = {
   },
 };
 
-export default { dashboardPath: dashboardPath };
+const adminDashboardPath: AdminDashBoardPaths = {
+  cryptoCurrency: {
+    href: "crypto-currency",
+    title: "仮想通貨マスタ",
+    iconType: "cryptoCurrency",
+  },
+  cryptoTimeline: {
+    href: "crypto-currencisAdminDisp",
+    title: "仮想通貨タイムライン",
+    iconType: "cryptoTimeline",
+  },
+};
+
+export default {
+  dashboardPath: dashboardPath,
+  adminDashboardPath: adminDashboardPath,
+};

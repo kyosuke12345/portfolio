@@ -9,6 +9,7 @@ import { RootState } from "redux/rootReducer";
 import DashboardNavbar from "../components/dashboard/navbar";
 import DashboardSidebar from "../components/dashboard/sidebar";
 import { logout } from "redux/modules/authModule";
+import { isAdmin } from "utils/app.util";
 
 export const SIDE_MENU_WIDTH = 280;
 
@@ -73,7 +74,7 @@ const theme = createTheme({
 const DashboardLayout: React.FC = () => {
   const [navOpen, setNavOpen] = useState(false);
   const dispatch = useDispatch();
-  const { isAuth } = useSelector((state: RootState) => state.auth);
+  const { isAuth, user } = useSelector((state: RootState) => state.auth);
   const isMobile = useMobile();
   return (
     <ThemeProvider theme={theme}>
@@ -87,6 +88,7 @@ const DashboardLayout: React.FC = () => {
         />
         <DashboardSidebar
           isMobile={isMobile}
+          isAdmin={isAdmin(user?.role)}
           openNav={navOpen}
           onCloseNav={() => setNavOpen(false)}
           onClickNav={() => setNavOpen(false)}
