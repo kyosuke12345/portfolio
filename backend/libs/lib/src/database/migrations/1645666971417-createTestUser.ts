@@ -29,17 +29,10 @@ const TEST_USER = [
 export class createTestUser1645666971417 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     for (const test of TEST_USER) {
-      const user = new User();
-      user.email = test.email;
-      user.plainPassword = test.password;
-      user.password = await bcrypt.hash(user.plainPassword, 10);
-      const newUser = await queryRunner.manager.save(User, user);
-      for (const h of test.hobbies) {
-        const hobby = new Hobby();
-        hobby.user = newUser;
-        hobby.name = h;
-        await queryRunner.manager.save(Hobby, hobby);
-      }
+      const hashPassword = await bcrypt.hash(test.password, 10);
+      await queryRunner.query(`
+        INSERT INTO users (email, password, plain_password) VALUES ('${test.email}', '${hashPassword}', '${test.password}')
+      `);
     }
   }
 

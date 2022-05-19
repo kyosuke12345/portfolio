@@ -11,7 +11,7 @@ export type CryptocurrencyMasterState = {
 
 const initialState: CryptocurrencyMasterState = {};
 
-const search = createAsyncThunk<CryptocurrencyMasterListResponse>(
+export const search = createAsyncThunk<CryptocurrencyMasterListResponse>(
   "cryptocurrencMaster/search",
   async (_, thunkAPI) => {
     thunkAPI.dispatch(showLoading());

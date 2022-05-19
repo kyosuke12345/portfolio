@@ -1,8 +1,6 @@
 import { Alert, AlertTitle, Box, Link } from "@mui/material";
 import LoginFormContainer from "components/form/login/container";
-import { LoginFormFileds } from "components/form/login";
 import { useDispatch } from "react-redux";
-import { login } from "redux/modules/authModule";
 import path from "utils/path";
 
 const LoginScreen: React.VFC = () => {
@@ -19,11 +17,7 @@ const LoginScreen: React.VFC = () => {
         </Alert>
       </Box>
 
-      <LoginFormContainer
-        onSubmit={(values: LoginFormFileds) => {
-          dispatch(login(values));
-        }}
-      />
+      <LoginFormContainer />
     </>
   );
 };
