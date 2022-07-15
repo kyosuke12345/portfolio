@@ -12,9 +12,16 @@ import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import LoginIcon from "@mui/icons-material/Login";
 import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
 import InfoIcon from "@mui/icons-material/Info";
+import VideogameAssetIcon from "@mui/icons-material/VideogameAsset";
 import { ReactNode } from "react";
 
-export type NavIconType = "login" | "list" | "account" | "user" | "info";
+export type NavIconType =
+  | "login"
+  | "list"
+  | "account"
+  | "user"
+  | "info"
+  | "game";
 
 export interface NavItemProps {
   /** url */
@@ -39,6 +46,8 @@ function renderNavIcon(iconType: NavIconType): ReactNode {
       return <SupervisedUserCircleIcon />;
     case "info":
       return <InfoIcon />;
+    case "game":
+      return <VideogameAssetIcon />;
     default:
       return <SettingsApplicationsIcon />;
   }

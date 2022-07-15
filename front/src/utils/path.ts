@@ -11,6 +11,7 @@ type DashBoardPaths = {
   login: DashBoardPath;
   userList: DashBoardPath;
   user: DashBoardPath;
+  tetris: DashBoardPath;
 };
 
 const dashboardPath: DashBoardPaths = {
@@ -33,6 +34,11 @@ const dashboardPath: DashBoardPaths = {
     href: "user-detail",
     title: "ユーザ情報",
     iconType: "account",
+  },
+  tetris: {
+    href: "tetris",
+    title: "テトリス",
+    iconType: "game",
   },
 };
 

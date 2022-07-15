@@ -10,6 +10,7 @@ import { getUserInfo } from "redux/modules/authModule";
 import { RootState } from "redux/rootReducer";
 import UserDetailScreen from "pages/userdetail/index";
 import DashboardLayout from "pages/BaseLayout";
+import TetrisScreen from "pages/tetris/index";
 import PortFolioScreen from "pages/portfolio";
 
 // NOTE: userRoutesがまだ使用できないので、Routeで記載する
@@ -46,6 +47,10 @@ const App: React.VFC = () => {
               <Route
                 path={path.dashboardPath.user.href}
                 element={<UserDetailScreen />}
+              />
+              <Route
+                path={path.dashboardPath.tetris.href}
+                element={<TetrisScreen />}
               />
             </Route>
           </Routes>
