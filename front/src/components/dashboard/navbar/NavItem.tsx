@@ -14,6 +14,7 @@ import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
 import InfoIcon from "@mui/icons-material/Info";
 import VideogameAssetIcon from "@mui/icons-material/VideogameAsset";
 import { ReactNode } from "react";
+import ChatIcon from "@mui/icons-material/Chat";
 
 export type NavIconType =
   | "login"
@@ -21,7 +22,8 @@ export type NavIconType =
   | "account"
   | "user"
   | "info"
-  | "game";
+  | "game"
+  | "chat";
 
 export interface NavItemProps {
   /** url */
@@ -48,6 +50,8 @@ function renderNavIcon(iconType: NavIconType): ReactNode {
       return <InfoIcon />;
     case "game":
       return <VideogameAssetIcon />;
+    case "chat":
+      return <ChatIcon />;
     default:
       return <SettingsApplicationsIcon />;
   }

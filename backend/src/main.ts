@@ -9,7 +9,6 @@ import helmet from 'helmet';
 import { createClient } from 'redis';
 import { isProduct } from '../libs/lib/src/config/enviroment';
 import { ValidationPipe } from '@nestjs/common';
-import { LoggingInterceptor } from 'libs/lib/src/core/interceptors/logger.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -32,8 +31,8 @@ async function bootstrap() {
     url: isProduct ? configService.get('REDIS_TLS_URL') : undefined,
     tls: isProduct()
       ? {
-        rejectUnauthorized: false,
-      }
+          rejectUnauthorized: false,
+        }
       : undefined,
   });
   app.use(
@@ -52,6 +51,16 @@ async function bootstrap() {
   );
   app.use(passport.initialize());
   app.use(passport.session());
+
+  // cors dev時のみ有効
+  // if (true) {
+  //   app.enableCors({
+  //     origin: 'http://localhost:3000',
+  //     allowedHeaders:
+  //       'X-Requested-With, Origin, X-Csrftoken, Content-Type, Accept',
+  //     credentials: true,
+  //   });
+  // }
 
   // swagger
   const config = new DocumentBuilder()

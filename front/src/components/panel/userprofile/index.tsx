@@ -6,15 +6,11 @@ import {
   Avatar,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import { deepOrange, deepPurple, blue, red } from "@mui/material/colors";
 import { UserDetailResponse } from "api/response/userDetail.response";
-import { useState } from "react";
 
 export type UserProfilePanelProps = {
   user?: UserDetailResponse;
 };
-
-const BG_COLORS = [deepOrange[500], deepPurple[500], blue[500], red[500]];
 
 const TitleTypography: React.VFC<{ title: string }> = ({ title }) => {
   return (
@@ -25,9 +21,6 @@ const TitleTypography: React.VFC<{ title: string }> = ({ title }) => {
 };
 
 const UserProfilePanel: React.VFC<UserProfilePanelProps> = ({ user }) => {
-  const [avatarColor] = useState(
-    BG_COLORS[Math.floor(Math.random() * BG_COLORS.length)]
-  );
   return (
     <>
       <Box
@@ -41,16 +34,14 @@ const UserProfilePanel: React.VFC<UserProfilePanelProps> = ({ user }) => {
           {"ユーザ情報"}
         </Typography>
         <Avatar
+          src={`https://avatars.dicebear.com/api/human/${user!.email}.svg`}
           sx={{
-            bgcolor: avatarColor,
             width: 256,
             height: 256,
             fontSize: 96,
             mb: 1,
           }}
-        >
-          T
-        </Avatar>
+        ></Avatar>
         <TitleTypography title="email" />
         <Typography variant="subtitle1" gutterBottom>
           {user?.email}

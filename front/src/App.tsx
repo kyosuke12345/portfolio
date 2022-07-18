@@ -12,6 +12,7 @@ import UserDetailScreen from "pages/userdetail/index";
 import DashboardLayout from "pages/BaseLayout";
 import TetrisScreen from "pages/tetris/index";
 import PortFolioScreen from "pages/portfolio";
+import ChatScreen from "pages/chat";
 
 // NOTE: userRoutesがまだ使用できないので、Routeで記載する
 
@@ -51,6 +52,10 @@ const App: React.VFC = () => {
               <Route
                 path={path.dashboardPath.tetris.href}
                 element={<TetrisScreen />}
+              />
+              <Route
+                path={path.dashboardPath.chat.href}
+                element={<ChatScreen />}
               />
             </Route>
           </Routes>

@@ -7,18 +7,19 @@ import { CustomLoggerModule } from '../libs/lib/src/custom-logger/custom-logger.
 import { CoreModule } from '../libs/lib/src/core/core.module';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
-import { join } from 'path'
+import { join } from 'path';
 import { CronModule } from './cron/cron.module';
 import { CryptocurrencyMasterModule } from './cryptocurrency-master/cryptocurrency-master.module';
+import { ChatGateway } from './chat.gateway';
 
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
-      useClass: DatabaseConfig
+      useClass: DatabaseConfig,
     }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, "../../front/public"),
+      rootPath: join(__dirname, '../../front/public'),
     }),
     UserModule,
     CustomLoggerModule,
@@ -28,6 +29,6 @@ import { CryptocurrencyMasterModule } from './cryptocurrency-master/cryptocurren
     CryptocurrencyMasterModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [ChatGateway],
 })
-export class AppModule { }
+export class AppModule {}

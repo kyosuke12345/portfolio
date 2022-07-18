@@ -12,6 +12,7 @@ type DashBoardPaths = {
   userList: DashBoardPath;
   user: DashBoardPath;
   tetris: DashBoardPath;
+  chat: DashBoardPath;
 };
 
 const dashboardPath: DashBoardPaths = {
@@ -39,6 +40,11 @@ const dashboardPath: DashBoardPaths = {
     href: "tetris",
     title: "テトリス",
     iconType: "game",
+  },
+  chat: {
+    href: "chat",
+    title: "チャット",
+    iconType: "chat",
   },
 };
 
