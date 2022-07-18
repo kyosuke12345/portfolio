@@ -19,6 +19,11 @@ async function bootstrap() {
   app.use(
     helmet({
       hidePoweredBy: true,
+      contentSecurityPolicy: {
+        directives: {
+          'img-src': ["'self'", 'data:', 'https://avatars.dicebear.com'],
+        },
+      },
     }),
   );
 
