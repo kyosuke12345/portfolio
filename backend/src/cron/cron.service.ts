@@ -35,7 +35,7 @@ export class CronService {
     this.errorLogger.log(`paper trail send mail: ${subject} ${text}`);
   }
 
-  // @Cron(CronExpression.EVERY_DAY_AT_1AM)
+  @Cron(CronExpression.EVERY_DAY_AT_1AM)
   async deleteData() {
     const nowDate = new Date();
     const twoYearsBeforeDate = addYears(nowDate, -2);
@@ -47,7 +47,7 @@ export class CronService {
       .execute();
   }
 
-  // @Cron(CronExpression.EVERY_MINUTE)
+  @Cron(CronExpression.EVERY_MINUTE)
   async getLiquidSOL() {
     try {
       const nowDate = new Date();
@@ -134,7 +134,7 @@ export class CronService {
   /**
    * サイトが落ちないように１０分ごとにアクセスする。
    */
-  // @Cron(CronExpression.EVERY_10_MINUTES)
+  @Cron(CronExpression.EVERY_10_MINUTES)
   async accessMySite() {
     try {
       this.httpService
