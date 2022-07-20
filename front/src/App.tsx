@@ -1,11 +1,11 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useDidMount } from "rooks";
 import path from "utils/path";
 import { ScopedCssBaseline } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import LoginScreen from "pages/login/index";
 import UserListScreen from "pages/userlist/index";
-import { useDidMount } from "hooks/useDidMount";
 import { getUserInfo } from "redux/modules/authModule";
 import { RootState } from "redux/rootReducer";
 import UserDetailScreen from "pages/userdetail/index";
@@ -13,6 +13,7 @@ import DashboardLayout from "pages/BaseLayout";
 import TetrisScreen from "pages/tetris/index";
 import PortFolioScreen from "pages/portfolio";
 import ChatScreen from "pages/chat";
+import ChartScreen from "pages/chart";
 
 // NOTE: userRoutesがまだ使用できないので、Routeで記載する
 
@@ -56,6 +57,10 @@ const App: React.VFC = () => {
               <Route
                 path={path.dashboardPath.chat.href}
                 element={<ChatScreen />}
+              />
+              <Route
+                path={path.dashboardPath.chart.href}
+                element={<ChartScreen />}
               />
             </Route>
           </Routes>

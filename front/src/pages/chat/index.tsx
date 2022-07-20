@@ -18,7 +18,7 @@ import { RootState } from "redux/rootReducer";
 import path from "utils/path";
 import io from "socket.io-client";
 import { useCallback, useEffect, useState } from "react";
-import { useDidMount } from "hooks/useDidMount";
+import { useDidMount } from "rooks";
 import { environment } from "utils/enviroment";
 import SendIcon from "@mui/icons-material/Send";
 
@@ -47,7 +47,7 @@ const ChatScreen: React.VFC = () => {
       setIsConnected(false);
     });
 
-    socket.on("exception", (data) => {
+    socket.on("exception", () => {
       setIsConnected(false);
     });
 

@@ -8,6 +8,7 @@ const URL = {
   GET_USER_DETAIL: () => API_BASE_URL + `/user/detail`,
   POST_USER_ADD_HOBBIES: () => API_BASE_URL + `/user/add-hobbies`,
   POST_USER_REMOVE_HOBBIES: () => API_BASE_URL + `/user/remove-hobbies`,
+  GET_STOCK_DATA: () => API_BASE_URL + `/chart/list/btc`,
 };
 
 export default URL;

@@ -11,6 +11,7 @@ import { join } from 'path';
 import { CronModule } from './cron/cron.module';
 import { CryptocurrencyMasterModule } from './cryptocurrency-master/cryptocurrency-master.module';
 import { ChatGateway } from './chat.gateway';
+import { ChartModule } from './chart/chart.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { ChatGateway } from './chat.gateway';
     AuthenticationModule,
     CronModule,
     CryptocurrencyMasterModule,
+    ChartModule,
   ],
   controllers: [],
   providers: [ChatGateway],
