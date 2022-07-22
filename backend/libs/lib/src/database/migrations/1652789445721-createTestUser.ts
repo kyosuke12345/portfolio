@@ -26,7 +26,7 @@ const TEST_USER = [
   { email: 'test12@test.test.com', password: 'test12', hobbies: ['読書'] },
 ];
 
-export class createTestUser1645666971417 implements MigrationInterface {
+export class createTestUser1652789445721 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     for (const test of TEST_USER) {
       const user = new User();

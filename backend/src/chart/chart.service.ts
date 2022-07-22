@@ -6,12 +6,19 @@ import { ChartResponseItem } from './class/chart.response';
 
 @Injectable()
 export class ChartService {
-  constructor(@InjectRepository(CryptocurrencyDayData) private currencyRepository: Repository<CryptocurrencyDayData>) {}
+  constructor(
+    @InjectRepository(CryptocurrencyDayData)
+    private currencyRepository: Repository<CryptocurrencyDayData>,
+  ) {}
 
-  async getBTCLists(): Promise<ChartResponseItem[]> {
-    const list = await this.currencyRepository.find({ where: {cryptocurrencyType: '5'}, order: {day: 'ASC'}, take: 365});
+  async getCryptoCurrencyLists(type: string): Promise<ChartResponseItem[]> {
+    const list = await this.currencyRepository.find({
+      where: { cryptocurrencyType: type },
+      order: { day: 'ASC' },
+      take: 365,
+    });
     return list.map((row) => {
       return new ChartResponseItem(row);
-    })
+    });
   }
 }

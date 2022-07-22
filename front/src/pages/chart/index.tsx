@@ -18,23 +18,46 @@ type StockData = {
   low: number;
 };
 
+type Response = {
+  btc: StockData[];
+  eth: StockData[];
+  sol: StockData[];
+};
+
+type DataType = {
+  label: string;
+  data: number[];
+  borderColor: string;
+};
+
+const BORDRE_COLOR = {
+  btc: "rgb(51, 206, 255)",
+  eth: "rgb(70, 255, 51)",
+  sol: "rgb(255, 165, 51)",
+};
+
 const ChartScreen: React.VFC = () => {
   const dispatch = useDispatch();
   const [labels, setLabels] = useState<string[]>([]);
-  const [data, setData] =
-    useState<{ label: string; data: number[]; borderColor: string }>();
+  const [datas, setDatas] = useState<DataType[]>();
   useDidMount(() => {
     dispatch(showLoading());
     const fetchData = async () => {
-      const result = await get<StockData[]>(
+      const result = await get<Response>(
         URL.GET_STOCK_DATA() + "?" + new Date().toString()
       );
-      setData({
-        label: "BTC",
-        data: result.map((row) => row.close),
-        borderColor: "rgb(20, 47, 248)",
-      });
-      setLabels(result.map((row) => row.day));
+      const dl: DataType[] = [];
+      for (const key in result) {
+        const dicKey = key as keyof Response;
+        dl.push({
+          label: key.toUpperCase(),
+          data: result[dicKey].map((row) => row.close),
+          borderColor: BORDRE_COLOR[dicKey],
+        });
+      }
+
+      setDatas(dl);
+      setLabels(result.btc.map((row) => row.day));
     };
     fetchData();
     dispatch(hideLoading());
@@ -47,8 +70,8 @@ const ChartScreen: React.VFC = () => {
         </Alert>
       </Box>
       <Box>
-        {labels.length > 0 && !isUndefined(data) && (
-          <Line data={{ labels: labels, datasets: [data] }} />
+        {labels.length > 0 && !isUndefined(datas) && (
+          <Line data={{ labels: labels, datasets: datas }} />
         )}
       </Box>
     </>
