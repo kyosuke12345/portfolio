@@ -9,7 +9,7 @@ export class ChartService {
   constructor(@InjectRepository(CryptocurrencyDayData) private currencyRepository: Repository<CryptocurrencyDayData>) {}
 
   async getBTCLists(): Promise<ChartResponseItem[]> {
-    const list = await this.currencyRepository.find({ where: {cryptocurrencyType: '5'}, order: {day: 'ASC'}});
+    const list = await this.currencyRepository.find({ where: {cryptocurrencyType: '5'}, order: {day: 'ASC'}, take: 365});
     return list.map((row) => {
       return new ChartResponseItem(row);
     })

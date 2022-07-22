@@ -3,7 +3,7 @@ import { ApiProperty } from "@nestjs/swagger";
 
 export class ChartResponseItem {
   @ApiProperty()
-  x: string;
+  day: string;
   @ApiProperty()
   open: number;
   @ApiProperty()
@@ -14,7 +14,7 @@ export class ChartResponseItem {
   low: number;
 
   constructor(data: CryptocurrencyDayData) {
-    this.x = `${data.day.getMonth() + 1}/${data.day.getDate()}`;
+    this.day = `${data.day.getMonth() + 1}/${data.day.getDate()}`;
     this.open = data.hajimePrice;
     this.close = data.owariPrice;
     this.high = data.maxPrice;

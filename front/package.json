@@ -18,9 +18,11 @@
     "@types/react-redux": "^7.1.20",
     "@types/redux-form": "^8.3.3",
     "@types/socket.io": "^3.0.2",
+    "chart.js": "^3.8.0",
     "layout-styled-components": "^0.1.13",
     "react": "^17.0.2",
     "react-animations": "^1.0.0",
+    "react-chartjs-2": "^4.3.1",
     "react-dom": "^17.0.2",
     "react-genie": "^0.2.2",
     "react-genie-styled-components": "^0.1.1",
@@ -34,7 +36,6 @@
     "ts-loader": "^9.2.6",
     "typescript": "^4.1.2",
     "validator": "^13.7.0",
-    "victory": "^36.5.3",
     "web-vitals": "^1.0.1"
   },
   "scripts": {

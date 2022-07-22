@@ -5,15 +5,13 @@ import URL from "api/url";
 import { Box, Alert, AlertTitle } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { hideLoading, showLoading } from "redux/modules/loadingModule";
-import {
-  VictoryChart,
-  VictoryAxis,
-  VictoryTheme,
-  VictoryCandlestick,
-} from "victory";
+import { Line } from "react-chartjs-2";
+import { Chart, registerables } from "chart.js";
+Chart.register(...registerables);
+import { isUndefined } from "utils/typeguard";
 
 type StockData = {
-  x: string;
+  day: string;
   open: number;
   close: number;
   high: number;
@@ -22,14 +20,21 @@ type StockData = {
 
 const ChartScreen: React.VFC = () => {
   const dispatch = useDispatch();
-  const [stockData, setStockData] = useState<StockData[]>([]);
+  const [labels, setLabels] = useState<string[]>([]);
+  const [data, setData] =
+    useState<{ label: string; data: number[]; borderColor: string }>();
   useDidMount(() => {
     dispatch(showLoading());
     const fetchData = async () => {
       const result = await get<StockData[]>(
         URL.GET_STOCK_DATA() + "?" + new Date().toString()
       );
-      setStockData(result);
+      setData({
+        label: "BTC",
+        data: result.map((row) => row.close),
+        borderColor: "rgb(20, 47, 248)",
+      });
+      setLabels(result.map((row) => row.day));
     };
     fetchData();
     dispatch(hideLoading());
@@ -42,20 +47,8 @@ const ChartScreen: React.VFC = () => {
         </Alert>
       </Box>
       <Box>
-        {stockData.length > 0 && (
-          <VictoryChart
-            scale={{ x: "time", y: "linear" }}
-            domainPadding={{ x: 10 }}
-            theme={VictoryTheme.material}
-          >
-            <VictoryAxis dependentAxis />
-            <VictoryAxis />
-            <VictoryCandlestick
-              candleColors={{ positive: "white", negative: "black" }}
-              data={stockData}
-              candleWidth={10}
-            />
-          </VictoryChart>
+        {labels.length > 0 && !isUndefined(data) && (
+          <Line data={{ labels: labels, datasets: [data] }} />
         )}
       </Box>
     </>
