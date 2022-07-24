@@ -18,7 +18,7 @@ type DashBoardPaths = {
 
 const dashboardPath: DashBoardPaths = {
   about: {
-    href: "/",
+    href: "",
     title: "about",
     iconType: "info",
   },
@@ -54,4 +54,18 @@ const dashboardPath: DashBoardPaths = {
   },
 };
 
-export default { dashboardPath: dashboardPath };
+type MainPath = {
+  href: string;
+};
+
+type MainPaths = {
+  home: MainPath;
+};
+
+const mainPaths: MainPaths = {
+  home: {
+    href: "",
+  },
+};
+
+export default { dashboardPath: dashboardPath, mainPaths: mainPaths };

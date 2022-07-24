@@ -14,6 +14,8 @@ import TetrisScreen from "pages/tetris/index";
 import PortFolioScreen from "pages/portfolio";
 import ChatScreen from "pages/chat";
 import ChartScreen from "pages/chart";
+import MainBaseLayout from "pages/MainBaseLayout";
+import Home from "pages/home";
 
 // NOTE: userRoutesがまだ使用できないので、Routeで記載する
 
@@ -33,7 +35,10 @@ const App: React.VFC = () => {
       <ScopedCssBaseline>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<DashboardLayout />}>
+            <Route path="" element={<MainBaseLayout />}>
+              <Route path={path.mainPaths.home.href} element={<Home />} />
+            </Route>
+            <Route path="/admin" element={<DashboardLayout />}>
               <Route
                 path={path.dashboardPath.about.href}
                 element={<PortFolioScreen />}
